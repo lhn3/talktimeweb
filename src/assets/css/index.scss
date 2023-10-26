@@ -7,3 +7,50 @@ html, body, #app {
   width: 100%;
   height: 100%;
 }
+
+//字体图标初始化
+.iconfont {
+  cursor: pointer;
+  font-style: normal;
+  font-weight: 400;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  vertical-align: text-bottom;
+  display: inline-block;
+  fill: currentColor;
+  width: 17px;
+  height: 17px;
+}
+
+//一行显示
+.text-nowrap {
+  overflow: hidden;
+  /* 显示省略号 */
+  text-overflow: ellipsis;
+  /* 最多1行 */
+  -webkit-line-clamp: 1;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  white-space: normal;
+}
+
+//全局滚动条样式
+::-webkit-scrollbar {
+  //background-color: #f4f4f4!important;
+  height: 6px!important; //x轴滚动宽度
+  width: 6px!important; //y轴滚动宽度
+}
+::-webkit-scrollbar-corner { //x,y轴交汇处
+  width: 6px!important;
+  height: 6px!important;
+}
+::-webkit-scrollbar-thumb { //滚动条上的滚动滑块
+  border-radius: 8px;
+  background-color: rgba(0, 0, 0, 0.2);
+}
+::-webkit-scrollbar-track { //滚动条轨道
+  border-right-color: transparent;
+  border-left-color: transparent;
+  background-color: rgba(0, 0, 0, 0.1);
+}

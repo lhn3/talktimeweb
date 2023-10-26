@@ -12,7 +12,7 @@ module.exports = {
   ],
   rules: {
     //log警告
-    'no-console': [2, { allow: ['warn', 'error'] }],
+    'no-console': [0, { allow: ['warn', 'error'] }],
     //禁止[]内使用空格
     'array-bracket-spacing': 2,
     //禁用var

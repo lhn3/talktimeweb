@@ -1,5 +1,3 @@
-
-@use "@/assets/css/base.scss";
 body {
   padding: 0;
   margin: 0;
@@ -8,4 +6,19 @@ body {
 html, body, #app {
   width: 100%;
   height: 100%;
+}
+
+//字体图标初始化
+.iconfont {
+  cursor: pointer;
+  font-style: normal;
+  font-weight: 400;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  vertical-align: text-bottom;
+  display: inline-block;
+  fill: currentColor;
+  width: 17px;
+  height: 17px;
 }
