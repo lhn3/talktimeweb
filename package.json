@@ -55,10 +55,6 @@
     "last 2 versions",
     "not dead"
   ],
-  "gitHooks": {
-    "pre-commit": "lint-staged",
-    "commit-msg": "commitlint -E GIT_PARAMS"
-  },
   "commitlint": {
     "extends": [
       "@commitlint/config-conventional"
