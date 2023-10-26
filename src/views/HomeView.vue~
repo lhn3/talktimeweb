@@ -1,6 +1,7 @@
 <template>
   <div :class="$style['home']">
     <div class="aaa"></div>
+    <el-input />
   </div>
 </template>
 <script setup lang="ts"></script>
