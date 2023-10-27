@@ -1,6 +1,6 @@
 <template>
   <div :class="$style['home']">
-    <div class="aaa"></div>
+    <div class="aaa" v-loading="true"></div>
     <svg-icon name="icon-tags1" color="red" width="50px" height="50px" />
     <el-button @click="handelClick">请求</el-button>
   </div>
