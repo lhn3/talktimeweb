@@ -7,11 +7,9 @@
     <use :xlink:href="symbolId" />
   </svg>
 </template>
-
+ 
 <script lang="ts">
-  export default {
-    name: 'svg-icon'
-  }
+  export default { name: 'svg-icon' }
 </script>
 
 <script lang="ts" setup>
@@ -31,5 +29,5 @@
     className: { type: String, default: '' },
     style: { type: String, default: '' }
   })
-  const symbolId = computed(() => `#icon-${props.name?.replace('icon-', '')}`)
+  const symbolId = computed(() => `#${props.name}`)
 </script>

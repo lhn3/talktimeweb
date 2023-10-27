@@ -9,6 +9,21 @@ import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  // 服务配置
+  server: {
+    host: '0.0.0.0',
+    port: 8080,
+    open: true,
+    https: false,
+    proxy: {
+      '/api': {
+        target: '自己的ip端口',
+        changeOrigin: true,
+        ws: true,
+        rewrite: (path: string) => path.replace(/^\/api/, '')
+      }
+    }
+  },
   plugins: [
     vue(),
     vueJsx(),

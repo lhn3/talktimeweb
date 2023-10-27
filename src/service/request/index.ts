@@ -1,9 +1,9 @@
 import axios from 'axios'
-import { AxiosInstance } from 'axios'
-import { ElLoading } from 'element-plus/lib'
+import type { AxiosInstance } from 'axios'
+import { ElLoading } from 'element-plus'
 
 //导入自己封装的类型
-import { RequestInterceptors, myRequestConfig } from './type'
+import type { RequestInterceptors, myRequestConfig } from './type'
 
 //创建封装axios类
 export default class myRequest {
@@ -22,6 +22,7 @@ export default class myRequest {
     this.interceptors = baseConfig.interceptors
 
     //传入的请求拦截注册到拦截器中
+    // @ts-ignore
     this.instance.interceptors.request.use(
       this.interceptors?.requestInterceptor,
       this.interceptors?.requestInterceptorCatch

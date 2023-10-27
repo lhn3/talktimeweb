@@ -10,10 +10,8 @@ const myAxios = new myRequest({
   interceptors: {
     requestInterceptor(config) {
       //携带token发送请求
-      const token = localCache.getCache('token')
-      if (token) {
-        config.headers!.Authorization = `Bearer ${token}`
-      }
+      const token = localCache.getCache('talkTimeWeb-token')
+      if (token) config.headers!.Authorization = `Bearer ${token}`
       return config
     }
   }

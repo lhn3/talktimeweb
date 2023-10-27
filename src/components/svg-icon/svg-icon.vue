@@ -9,9 +9,7 @@
 </template>
 
 <script lang="ts">
-  export default {
-    name: 'svg-icon'
-  }
+  export default { name: 'svg-icon' }
 </script>
 
 <script lang="ts" setup>

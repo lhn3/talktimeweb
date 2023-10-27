@@ -8,6 +8,7 @@ class LocalCache {
   //取出
   getCache(key: string) {
     const value = window.localStorage.getItem(key)
+    console.log(value, '-----')
     if (value) {
       return JSON.parse(value)
     }

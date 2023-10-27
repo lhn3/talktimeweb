@@ -1,13 +1,18 @@
 <template>
   <div :class="$style['home']">
     <div class="aaa"></div>
-    <svg-icon name="icon-tags1" color="red" width="20px" height="20px" />
-
-    <icon-community />
+    <svg-icon name="icon-tags1" color="red" width="50px" height="50px" />
+    <el-button @click="handelClick">请求</el-button>
   </div>
 </template>
 <script setup lang="ts">
-  import IconCommunity from '@/components/icons/IconCommunity.vue'
+  import myAxios from '@/service'
+
+  const handelClick = () => {
+    myAxios.get({
+      url: '/aaa'
+    })
+  }
 </script>
 <style module lang="scss">
   .home {
