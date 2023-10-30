@@ -15,7 +15,7 @@ const app = createApp(App)
 app.use(createPinia())
 app.use(router)
 
-const user = useUserStore()
+const user: any = useUserStore()
 //按钮权限
 app.directive('hasPermission', {
   mounted(el: any, binding: any) {

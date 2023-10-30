@@ -4,13 +4,12 @@
   "private": true,
   "scripts": {
     "dev": "vite",
-    "build": "run-p type-check \"build-only {@}\" --",
+    "build": "run-p type-check build-only",
     "preview": "vite preview",
     "build-only": "vite build",
-    "type-check": "vue-tsc --noEmit -p tsconfig.app.json --composite false",
+    "type-check": "vue-tsc --noEmit",
     "lint": "eslint src --fix --ext .ts,.tsx,.vue,.js,.jsx --max-warnings 0",
-    "format": "prettier --write src/",
-    "ts": "vue-tsc --noEmit"
+    "format": "prettier --write src/"
   },
   "dependencies": {
     "@element-plus/icons-vue": "^2.1.0",

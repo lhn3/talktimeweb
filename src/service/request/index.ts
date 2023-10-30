@@ -22,7 +22,6 @@ export default class myRequest {
     this.interceptors = baseConfig.interceptors
 
     //传入的请求拦截注册到拦截器中
-    // @ts-ignore
     this.instance.interceptors.request.use(
       this.interceptors?.requestInterceptor,
       this.interceptors?.requestInterceptorCatch

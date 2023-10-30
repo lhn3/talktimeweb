@@ -25,7 +25,7 @@ export default class myRequest {
     // @ts-ignore
     this.instance.interceptors.request.use(
       this.interceptors?.requestInterceptor,
-      this.interceptors?.requestInterceptorCatch,
+      this.interceptors?.requestInterceptorCatch
     )
 
     //响应拦截
