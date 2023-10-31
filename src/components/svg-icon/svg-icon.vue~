@@ -2,7 +2,7 @@
   <svg
     aria-hidden="true"
     :class="`iconfont ${className}`"
-    :style="`width:${size};height:${size};color:${color};${style}`"
+    :style="`width:${width};height:${height};color:${color};${style}`"
   >
     <use :xlink:href="symbolId" />
   </svg>
@@ -24,7 +24,8 @@
       type: String,
       default: ''
     },
-    size: String,
+    width: String,
+    height: String,
     className: { type: String, default: '' },
     style: { type: String, default: '' }
   })

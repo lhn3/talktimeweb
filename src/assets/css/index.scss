@@ -7,6 +7,9 @@ html, body, #app {
   width: 100%;
   height: 100%;
 }
+div{
+  box-sizing: border-box;
+}
 
 //字体图标初始化
 .iconfont {
@@ -52,5 +55,5 @@ html, body, #app {
 ::-webkit-scrollbar-track { //滚动条轨道
   border-right-color: transparent;
   border-left-color: transparent;
-  background-color: rgba(0, 0, 0, 0.1);
+  //background-color: rgba(0, 0, 0, 0.1);
 }

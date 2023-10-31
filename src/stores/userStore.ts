@@ -7,12 +7,13 @@ export const useUserStore = defineStore('user', () => {
     id: null,
     username: '',
     permissions: [],
-    token: ''
+    token: '',
+    // 是否展示更多数据列
+    isShowMoreInfo: false
   })
   const doubleCount = computed(() => userInfo.index + 1)
-  function increment() {
-    userInfo.index++
-  }
 
-  return { userInfo, doubleCount, increment }
+  const changeShowMore = () => (userInfo.isShowMoreInfo = !userInfo.isShowMoreInfo)
+
+  return { userInfo, doubleCount, changeShowMore }
 })
