@@ -1,17 +1,30 @@
 <template>
   <div :class="$style['chatting-column']">
+    <!--头部-->
     <div class="chatting-header">
       <div class="chatting-title">测试标题</div>
       <div class="more-info" @click="() => user.changeShowMore()">
-        <el-icon size=""><MoreFilled /></el-icon>
+        <el-icon><MoreFilled /></el-icon>
       </div>
     </div>
+
+    <!--内容-->
+    <div
+      class="chatting-body"
+      :style="{ height: `calc(100% - ${controlBarRef?.$el?.clientHeight || 0}px - 80px)` }"
+    ></div>
+
+    <!--底部-->
+    <control-bar ref="controlBarRef" />
   </div>
 </template>
 <script setup lang="ts">
+  import { ref, watch } from 'vue'
   import { useUserStore } from '@/stores'
+  import ControlBar from '@/views/components/chatting-column/cpns/control-bar/index.vue'
 
   const user = useUserStore()
+  const controlBarRef = ref()
 </script>
 
 <style module lang="scss">
@@ -19,12 +32,13 @@
     height: 100%;
     width: 45vw;
     min-width: 540px;
-    background-color: #fff;
+    color: #fff;
+    background-color: $chat-body-color;
+    position: relative;
     :global {
       .chatting-header {
         padding: 0 20px;
-        border-bottom: 1px solid $border-color;
-        background-color: #fafafa;
+        background-color: $chat-header-color;
         display: flex;
         align-items: center;
         .chatting-title {
@@ -34,9 +48,13 @@
         .more-info {
           cursor: pointer;
           margin-left: auto;
-          color: #666666;
+          color: #eee;
           font-size: 22px;
         }
+      }
+      .chatting-body {
+        transition: height 0.3s;
+        background-color: #fff;
       }
     }
   }

@@ -2,6 +2,8 @@
   <div :class="$style['home']">
     <!--背景-->
     <particle-bg />
+
+    <!--聊天窗口-->
     <div class="home-container">
       <!--左侧头像信息分组一列-->
       <group-settings-column />
@@ -19,10 +21,10 @@
 </template>
 <script setup lang="ts">
   import ParticleBg from '@/components/particle-bg/particle-bg.vue'
-  import GroupSettingsColumn from '@/views/cpns/group-settings-column.vue'
-  import ListColumn from '@/views/cpns/list-column.vue'
-  import ChattingColumn from '@/views/cpns/chatting-column.vue'
-  import InformationColumn from '@/views/cpns/information-column.vue'
+  import GroupSettingsColumn from '@/views/components/group-settings-column/index.vue'
+  import ListColumn from '@/views/components/list-column/index.vue'
+  import ChattingColumn from '@/views/components/chatting-column/index.vue'
+  import InformationColumn from '@/views/components/information-column/index.vue'
 </script>
 <style module lang="scss">
   .home {

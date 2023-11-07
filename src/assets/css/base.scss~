@@ -10,4 +10,4 @@ $primary-color3: #6d5b85;
 //聊天框色
 $chat-body-color: #634a84; //聊天背景色
 $chat-input-color: #8769ae; //聊天输入框颜色
-$chat-header-color: #ae8cda; //聊天头部颜色
+$chat-header-color: #6d5b85; //聊天头部颜色

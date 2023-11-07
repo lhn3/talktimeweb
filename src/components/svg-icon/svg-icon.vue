@@ -2,7 +2,7 @@
   <svg
     aria-hidden="true"
     :class="`iconfont ${className}`"
-    :style="`width:${size};height:${size};color:${color};${style}`"
+    :style="`width:${size};height:${size};color:${color};${svgStyle}`"
   >
     <use :xlink:href="symbolId" />
   </svg>
@@ -26,7 +26,7 @@
     },
     size: String,
     className: { type: String, default: '' },
-    style: { type: String, default: '' }
+    svgStyle: { type: String, default: '' }
   })
   const symbolId = computed(() => `#${props.name}`)
 </script>

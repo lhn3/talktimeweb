@@ -15,8 +15,8 @@
 <style module lang="scss">
   .list-column {
     height: 100%;
-    width: 15vw;
-    min-width: 180px;
+    width: 20vw;
+    min-width: 240px;
     background-color: $primary-color2;
     :global {
       .list-search {

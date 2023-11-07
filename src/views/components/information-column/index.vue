@@ -26,7 +26,6 @@
     //min-width: 180px;
     transition: all 0.5s;
     background-color: #fff;
-    border-left: 1px solid $border-color;
     :global {
     }
   }

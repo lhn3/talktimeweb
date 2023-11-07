@@ -61,7 +61,7 @@
       .groups {
         width: 100%;
         .groups-item {
-          width: calc(100% + 2px);
+          width: calc(100% + 1px);
           height: 60px;
           display: flex;
           align-items: center;
