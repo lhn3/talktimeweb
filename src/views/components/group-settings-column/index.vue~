@@ -25,7 +25,7 @@
     <!--退出-->
     <div class="exit">
       <svg-icon v-if="getToken()" @click="exit" name="icon-tuichu" color="#6d5b85" size="22px" />
-      <svg-icon name="icon-erweima" @click="loginDialogVisible = true" color="#6d5b85" size="22px" />
+      <svg-icon name="icon-erweima" @click="loginDialogVisible.value = true" color="#6d5b85" size="22px" />
     </div>
 
     <login-dialog v-model="loginDialogVisible" />

@@ -12,7 +12,7 @@
 </template>
 
 <script setup lang="ts">
-  import { ref, defineProps, defineEmits, onMounted } from 'vue'
+  import { ref, defineProps, defineEmits, onMounted, nextTick } from 'vue'
   import { moveCursor } from '@/utils/utils'
 
   const props = defineProps({
@@ -25,11 +25,14 @@
   const inputControlRef = ref()
 
   onMounted(() => {
+    // 获取焦点,移动光标
     moveCursor(inputControlRef.value)
   })
 
-  /**点击div聚焦*/
-  const handelClick = () => {}
+  /**点击获取焦点*/
+  const handelClick = () => {
+    nextTick(() => inputControlRef.value?.focus())
+  }
 
   /**输入内容改变*/
   const inputChange = (e: any) => emit('update:modelValue', e.target.innerText)

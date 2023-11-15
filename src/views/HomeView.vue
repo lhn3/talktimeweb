@@ -1,7 +1,7 @@
 <template>
   <div :class="$style['home']">
     <!--背景-->
-    <particle-bg />
+    <!--    <particle-bg />-->
 
     <!--聊天窗口-->
     <div class="home-container">

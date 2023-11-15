@@ -11,3 +11,10 @@ $primary-color3: #6d5b85;
 $chat-body-color: #634a84; //聊天背景色
 $chat-input-color: #8769ae; //聊天输入框颜色
 $chat-header-color: #ae8cda; //聊天头部颜色
+
+//黑色质感背景
+$black-bg: repeating-linear-gradient(107deg, hsla(0, 0%, 5%, 0.15), hsla(0, 0%, 5%, 0.15) 0, transparent 0, transparent 1px, hsla(0, 0%, 5%, 0.15) 0, hsla(0, 0%, 5%, 0.15) 3px, transparent 0, transparent 4px, hsla(0, 0%, 5%, 0.15) 0, hsla(0, 0%, 5%, 0.15) 7px),
+repeating-linear-gradient(191deg, hsla(0, 0%, 5%, 0.15), hsla(0, 0%, 5%, 0.15) 0, transparent 0, transparent 1px, hsla(0, 0%, 5%, 0.15) 0, hsla(0, 0%, 5%, 0.15) 3px, transparent 0, transparent 4px, hsla(0, 0%, 5%, 0.15) 0, hsla(0, 0%, 5%, 0.15) 7px),
+repeating-linear-gradient(0deg, hsla(0, 0%, 5%, 0.15), hsla(0, 0%, 5%, 0.15) 0, transparent 0, transparent 1px, hsla(0, 0%, 5%, 0.15) 0, hsla(0, 0%, 5%, 0.15) 3px, transparent 0, transparent 4px, hsla(0, 0%, 5%, 0.15) 0, hsla(0, 0%, 5%, 0.15) 7px),
+repeating-linear-gradient(90deg, hsla(0, 0%, 5%, 0.15), hsla(0, 0%, 5%, 0.15) 0, transparent 0, transparent 1px, hsla(0, 0%, 5%, 0.15) 0, hsla(0, 0%, 5%, 0.15) 3px, transparent 0, transparent 4px, hsla(0, 0%, 5%, 0.15) 0, hsla(0, 0%, 5%, 0.15) 7px),
+linear-gradient(90deg, #2d2d2d, #2d2d2d);

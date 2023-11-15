@@ -1,3 +1,6 @@
+import { useUserStore } from '@/stores'
+const user: any = useUserStore()
+
 /**
  * 检查是否有权限
  * @param permission 所有权限数组
@@ -22,7 +25,7 @@ export const getUuid = (): string => {
  * @param type 类型
  * @param value 值
  */
-type typeType = 'email' | 'mobile' | 'phone' | 'url' | 'int'
+type typeType = 'email' | 'mobile' | 'phone' | 'url' | 'int' | 'code'
 export const isType = (type: typeType, value: string): boolean => {
   let flag = false
   switch (type) {
@@ -40,6 +43,9 @@ export const isType = (type: typeType, value: string): boolean => {
       break
     case 'int':
       flag = /^\+?[1-9][0-9]*$/.test(value)
+      break
+    case 'code':
+      flag = /^[0-9]{4}$/.test(value)
       break
     default:
       break
@@ -138,5 +144,26 @@ export const throttle = (fn: Function, time: number, first: boolean = true, last
       }
     })
   }
+}
+
+/**
+ * 将光标移动到最后
+ * @param dom
+ */
+export const moveCursor = (dom: any) => {
+  dom.focus()
+  //ie11 10 9 ff safari
+  if (window.getSelection) {
+    const range = window.getSelection() //创建range
+    range?.selectAllChildren(dom) //range 选择dom下所有子内容
+    range?.collapseToEnd() //光标移至最后
+  }
+}
+
+/**
+ * 获取token
+ */
+export const getToken = () => {
+  return user.userInfo.token || false
 }
 export { deepClone } from '@/utils/deepClone'

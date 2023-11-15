@@ -7,11 +7,19 @@ export {}
 
 declare module 'vue' {
   export interface GlobalComponents {
+    BirdButton: typeof import('./src/components/bird-button/bird-button.vue')['default']
     ElAvatar: typeof import('element-plus/es')['ElAvatar']
     ElButton: typeof import('element-plus/es')['ElButton']
+    ElCarousel: typeof import('element-plus/es')['ElCarousel']
+    ElCarouselItem: typeof import('element-plus/es')['ElCarouselItem']
+    ElDialog: typeof import('element-plus/es')['ElDialog']
     ElIcon: typeof import('element-plus/es')['ElIcon']
     ElInput: typeof import('element-plus/es')['ElInput']
     ElPopover: typeof import('element-plus/es')['ElPopover']
+    ElTag: typeof import('element-plus/es')['ElTag']
+    LoginDialog: typeof import('./src/components/login-dialog/login-dialog.vue')['default']
+    LogoSvg: typeof import('./src/components/logo-svg/logo-svg.vue')['default']
+    ParticleBg: typeof import('./src/components/particle-bg/particle-bg.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
   }

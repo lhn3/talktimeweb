@@ -1,15 +1,12 @@
 <template>
-  <div
-    :class="$style['control-bar']"
-    :style="{ height: state.inputType ? `${(inputControlRef?.$el?.clientHeight || 0) + 14}px` : '46px' }"
-  >
+  <div :class="$style['control-bar']">
     <!--语音键盘输入-->
     <div class="icon-style" @click="changeInputType">
       <svg-icon :name="state.inputType ? 'icon-jianpan1' : 'icon-yuyin'" size="22px" />
     </div>
 
     <!--输入框-->
-    <input-control ref="inputControlRef" v-if="state.inputType" v-model="state.inputValue" @submit="send" />
+    <input-control v-if="state.inputType" v-model="state.inputValue" @submit="send" />
     <!--语音框-->
     <speak-control v-else />
 
@@ -61,8 +58,6 @@
     inputValue: ''
   })
 
-  const inputControlRef = ref()
-
   /**改变输入状态*/
   const changeInputType = () => {
     if (state.inputType) {
@@ -85,12 +80,6 @@
     background-color: $chat-input-color;
     border-radius: 10px;
     padding: 5px;
-    position: absolute;
-    left: 10px;
-    bottom: 10px;
-    overflow: hidden;
-    transition: height 0.3s;
-
     :global {
       //子组件继承此样式
       .icon-style {

@@ -13,6 +13,7 @@ export const useUserStore = defineStore('user', () => {
   })
   const doubleCount = computed(() => userInfo.index + 1)
 
+  /**展示隐藏更多列表*/
   const changeShowMore = () => (userInfo.isShowMoreInfo = !userInfo.isShowMoreInfo)
 
   return { userInfo, doubleCount, changeShowMore }

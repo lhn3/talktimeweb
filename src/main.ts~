@@ -16,10 +16,7 @@ app.use(createPinia())
 app.use(router)
 
 const user: any = useUserStore()
-/**
- * 全局自定义指令
- * 按钮权限
- */
+//按钮权限
 app.directive('hasPermission', {
   mounted(el: any, binding: any) {
     const permissions = user.permissions
@@ -27,22 +24,6 @@ app.directive('hasPermission', {
     if (value && value instanceof Array && value.length > 0) {
       const _isPermission = value.some(item => permissions.includes(item) || item == '')
       if (!_isPermission) el.parentNode && el.parentNode.removeChild(el)
-    }
-  }
-})
-/**
- * 全局自定义指令
- * 保留具体位数并不四舍五入
- * el-input-number标签上绑定 v-input="保留的位数" 即可
- */
-app.directive('input', {
-  mounted(el, bindings) {
-    const input = el.getElementsByTagName('input')[0]
-    input.oninput = () => {
-      if (input.value.split('.')[1]?.length > bindings.value) {
-        const oldValue = input.value
-        input.value = Number(oldValue.replace(/[^\d.]/g, '').substring(0, oldValue.indexOf('.') + bindings.value + 1))
-      }
     }
   }
 })
