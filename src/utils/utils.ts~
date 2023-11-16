@@ -168,14 +168,10 @@ export const moveCursor = (dom: any) => {
  */
 export const scrollTo = (dom: any, position: string = 'top', value: number | null = null): void => {
   const scrollHeight: number = dom.scrollHeight
-  const scrollWidth: number = dom.scrollWidth
   const clientHeight: number = dom.clientHeight
   const clientWidth: number = dom.clientWidth
-  // 默认滚动到最底部和最右侧
   if (position === 'top') {
-    dom.scrollTop = value ?? scrollHeight - clientHeight
-  } else {
-    dom.scrollLeft = value ?? scrollWidth - clientWidth
+    dom.scrollTop = scrollHeight - clientHeight
   }
 }
 

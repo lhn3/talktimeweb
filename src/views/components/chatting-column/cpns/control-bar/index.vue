@@ -49,10 +49,15 @@
   </div>
 </template>
 <script setup lang="ts">
-  import { reactive, ref } from 'vue'
+  import { nextTick, reactive, ref } from 'vue'
   import InputControl from '@/views/components/chatting-column/cpns/control-bar/cpns/input-control.vue'
   import SpeakControl from '@/views/components/chatting-column/cpns/control-bar/cpns/speak-control.vue'
   import EmojiControl from '@/views/components/chatting-column/cpns/control-bar/cpns/emoji-control.vue'
+  import { useUserStore, useOtherStore } from '@/stores'
+  import { scrollTo } from '@/utils/utils'
+
+  const user = useUserStore()
+  const other = useOtherStore()
   const state = reactive({
     inputType: 1, //1键盘输入，2语音输入
     inputValue: ''
@@ -69,6 +74,17 @@
 
   const send = () => {
     // 发送并清空输入框内容
+    user.userInfo.messageList.push({
+      id: 8,
+      self: true,
+      avatar: 'https://picsum.photos/300/300?id=4',
+      userName: '西兰花',
+      address: '杭州',
+      time: '11:48',
+      message: state.inputValue
+    })
+    // 滚动到最底部
+    nextTick(() => scrollTo(other.otherInfo.chattingBodyDom))
     state.inputValue = ''
   }
 </script>
@@ -81,6 +97,7 @@
     border-radius: 10px;
     margin-bottom: 10px;
     padding: 5px;
+    box-shadow: 0 -5px 8px 0 rgba(#000, 0.3);
     :global {
       //子组件继承此样式
       .icon-style {

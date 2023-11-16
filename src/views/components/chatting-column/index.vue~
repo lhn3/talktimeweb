@@ -1,7 +1,7 @@
 <template>
   <div :class="$style['chatting-column']">
     <!--头部-->
-    <div class="chatting-header">
+    <div class="chatting-header" v-if="false">
       <div class="chatting-title">测试标题</div>
       <div class="more-info" @click="() => user.changeShowMore()">
         <el-icon><MoreFilled /></el-icon>
@@ -9,28 +9,35 @@
     </div>
 
     <!--内容-->
-    <div
-      class="chatting-body"
-      :style="{ height: `calc(100% - ${controlBarRef?.$el?.clientHeight || 0}px - 80px)` }"
-    ></div>
+    <chatting-body ref="chattingBodyRef" />
 
     <!--底部-->
-    <control-bar ref="controlBarRef" />
+    <control-bar />
   </div>
 </template>
 <script setup lang="ts">
-  import { ref } from 'vue'
-  import { useUserStore } from '@/stores'
+  import { onMounted, ref } from 'vue'
+  import { useUserStore, useOtherStore } from '@/stores'
+  import { scrollTo } from '@/utils/utils'
   import ControlBar from '@/views/components/chatting-column/cpns/control-bar/index.vue'
+  import ChattingBody from '@/views/components/chatting-column/cpns/chatting-body/index.vue'
 
+  const chattingBodyRef = ref()
   const user = useUserStore()
-  const controlBarRef = ref()
+  const other = useOtherStore()
+
+  onMounted(() => {
+    // 滚动到最底部
+    scrollTo(chattingBodyRef.value.$el)
+    //将dom记录到vue
+    other.otherInfo.chattingBodyDom = chattingBodyRef.value.$el
+  })
 </script>
 
 <style module lang="scss">
   .chatting-column {
     height: 100%;
-    width: 45vw;
+    width: 50vw;
     min-width: 540px;
     color: #fff;
     background-color: $chat-body-color;
@@ -39,14 +46,17 @@
     align-items: center;
     :global {
       .chatting-header {
-        width: 100%;
+        border-radius: 10px;
+        margin-top: 5px;
+        width: calc(100% - 10px);
         padding: 0 20px;
         background-color: $chat-header-color;
         display: flex;
         align-items: center;
+        box-shadow: 0 5px 8px 0 rgba(#000, 0.5);
         .chatting-title {
-          line-height: 65px;
-          font-size: 24px;
+          line-height: 60px;
+          font-size: 18px;
         }
         .more-info {
           cursor: pointer;
@@ -54,13 +64,6 @@
           color: #eee;
           font-size: 22px;
         }
-      }
-      .chatting-body {
-        width: 100%;
-        flex: 1;
-        transition: height 0.3s;
-        background-color: #fff;
-        margin-bottom: 5px;
       }
     }
   }

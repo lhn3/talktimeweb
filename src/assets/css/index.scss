@@ -29,6 +29,8 @@ div{
 //一行显示
 .text-nowrap {
   overflow: hidden;
+  word-wrap: break-word;
+  word-break: break-all;
   /* 显示省略号 */
   text-overflow: ellipsis;
   /* 最多1行 */
