@@ -11,7 +11,7 @@
         :src="item.avatar || 'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png'"
       />
       <!--内容-->
-      <div class="message-container" :style="{ alignItems: !item.self || 'flex-end' }">
+      <div class="message-container" :style="{ alignItems: item.self ? 'flex-end' : 'flex-start' }">
         <div class="user-info">
           <text v-if="item.self" class="send-time"> {{ item.time }}</text>
           <text class="user-name">{{ item.userName }}</text>
@@ -21,8 +21,8 @@
         <div
           class="user-message"
           :style="{
-            borderRadius: !item.self || '20px 0 20px 20px',
-            backgroundColor: !item.self || '#1d90f5'
+            borderRadius: item.self ? '20px 0 20px 20px' : '0 20px 20px 20px',
+            backgroundColor: item.self ? '#1d90f5' : '#6d5b85'
           }"
         >
           {{ item.message }}
@@ -41,14 +41,14 @@
   </div>
 </template>
 <script setup lang="ts">
-  import { computed, reactive } from 'vue'
-  import { useUserStore } from '@/stores'
+  import { defineProps } from 'vue/dist/vue'
 
-  const state = reactive({
-    dataList: []
+  const props = defineProps({
+    messageList: {
+      type: Array,
+      default: () => []
+    }
   })
-  const userStore = useUserStore()
-  const messageList = computed(() => userStore.userInfo.messageList)
 </script>
 <style module lang="scss">
   .chatting-body {
@@ -67,7 +67,6 @@
           margin: 0 15px;
           display: flex;
           flex-direction: column;
-          align-items: flex-start;
           .user-info {
             user-select: none;
             font-size: 13px;
@@ -94,9 +93,7 @@
             padding: 10px;
             font-size: 15px;
             line-height: 20px;
-            transition: all 0.3s;
-            border-radius: 0 20px 20px 20px;
-            background-color: rgba($primary-color, 0.3);
+            //transition: all 0.3s;
           }
           .user-message:hover {
             background-color: rgba($primary-color, 0.6);

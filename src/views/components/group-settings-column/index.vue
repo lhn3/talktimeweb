@@ -15,7 +15,7 @@
       <div
         v-for="item in tabs"
         :key="item.id"
-        :class="{ 'groups-item': true, 'groups-item-active': activeTab === item.id }"
+        :class="{ 'groups-item': true, 'groups-item-active': modelValue === item.id }"
         @click="tabClick(item.id)"
       >
         <svg-icon :name="item.icon" size="24px" />
@@ -33,17 +33,23 @@
 </template>
 
 <script setup lang="ts">
-  import { ref } from 'vue'
+  import { ref, defineProps, defineEmits } from 'vue'
   import SvgIcon from '@/components/svg-icon/svg-icon.vue'
   import { getToken } from '@/utils/utils'
   import LoginDialog from '@/components/login-dialog/login-dialog.vue'
 
-  const activeTab = ref(1)
   const loginDialogVisible = ref(false) //登录弹窗
+  const emit = defineEmits(['update:modelValue'])
+  const props = defineProps({
+    modelValue: {
+      type: Number,
+      default: 0
+    }
+  })
   const tabs = [
-    { icon: 'icon-a-ziyuan720', id: 1 },
-    { icon: 'icon-yonghudianji', id: 2 },
-    { icon: 'icon-nav_client', id: 3 }
+    { icon: 'icon-a-ziyuan720', id: 0 },
+    { icon: 'icon-yonghudianji', id: 1 },
+    { icon: 'icon-nav_client', id: 2 }
   ]
 
   /**头像点击*/
@@ -59,7 +65,7 @@
   const exit = () => {}
 
   /**点击不同分组*/
-  const tabClick = (id: number) => (activeTab.value = id)
+  const tabClick = (id: number) => emit('update:modelValue', id)
 </script>
 
 <style module lang="scss">

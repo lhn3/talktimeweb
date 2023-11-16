@@ -76,7 +76,7 @@
       state.inputType = 0
     } else {
       state.inputType = 1
-    }
+    } 
   }
 
   const send = () => {

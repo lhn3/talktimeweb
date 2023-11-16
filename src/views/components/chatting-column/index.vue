@@ -1,22 +1,22 @@
 <template>
   <div :class="$style['chatting-column']">
     <!--头部-->
-    <div class="chatting-header">
-      <div class="chatting-title">测试标题</div>
+    <div class="chatting-header" v-show="group === 0">
+      <div class="chatting-title">{{ messageInfo.userName }}</div>
       <div class="more-info" @click="() => user.changeShowMore()">
         <el-icon><MoreFilled /></el-icon>
       </div>
     </div>
 
     <!--内容-->
-    <chatting-body ref="chattingBodyRef" />
+    <chatting-body v-show="group === 0" :message-list="messageInfo.messageList || []" ref="chattingBodyRef" />
 
     <!--底部-->
-    <control-bar />
+    <control-bar v-show="group === 0" :chatting-id="chattingId" />
   </div>
 </template>
 <script setup lang="ts">
-  import { onMounted, ref } from 'vue'
+  import { onMounted, ref, defineProps } from 'vue'
   import { useUserStore, useOtherStore } from '@/stores'
   import { scrollTo } from '@/utils/utils'
   import ControlBar from '@/views/components/chatting-column/cpns/control-bar/index.vue'
@@ -25,6 +25,22 @@
   const chattingBodyRef = ref()
   const user = useUserStore()
   const other = useOtherStore()
+  const props = defineProps({
+    //正在聊天的信息和消息列表
+    messageInfo: {
+      type: Object,
+      default: () => ({})
+    },
+    // 正在聊天的id
+    chattingId: {
+      type: Number,
+      required: true
+    },
+    group: {
+      type: Number,
+      required: true
+    }
+  })
 
   onMounted(() => {
     // 滚动到最底部
