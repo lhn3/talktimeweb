@@ -1,0 +1,37 @@
+<template>
+  <el-popover popper-class="avatar-popover" placement="right" :show-arrow="false" trigger="click">
+    <template #reference>
+      <el-avatar
+        shape="circle"
+        style="cursor: pointer"
+        :size="45"
+        fit="cover"
+        :src="userInfo.avatar || 'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png'"
+      />
+    </template>
+    <user-info-card :popover="true" :user-info="userInfo" :send="true" :add="userInfo.userName !== '西兰花'" />
+  </el-popover>
+</template>
+<script setup lang="ts">
+  import { defineProps } from 'vue'
+  import UserInfoCard from '@/components/user-info-card/user-info-card.vue'
+
+  const props = defineProps({
+    userInfo: {
+      type: Object,
+      default: () => ({})
+    }
+  })
+</script>
+
+<style module lang="scss">
+  :global(.avatar-popover) {
+    width: 240px !important;
+    padding: 0 !important;
+    background-color: rgba(0, 0, 0, 0.5) !important;
+    backdrop-filter: blur(8px) !important;
+    border: none !important;
+    border-radius: 15px !important;
+    box-shadow: -5px 5px 10px 0px rgba(0, 0, 0, 0.5) !important;
+  }
+</style>

@@ -1,18 +1,24 @@
 <template>
   <div :class="$style['chatting-column']">
-    <!--头部-->
-    <div class="chatting-header" v-show="group === 0">
-      <div class="chatting-title">{{ messageInfo.userName }}</div>
-      <div class="more-info" @click="() => user.changeShowMore()">
-        <el-icon><MoreFilled /></el-icon>
+    <!--聊天盒子-->
+    <div class="chatting-box" v-show="group === 0">
+      <!--头部-->
+      <div class="chatting-header">
+        <div class="chatting-title">{{ messageOrUserInfo.userName }}</div>
+        <div class="more-info" @click="() => user.changeShowMore()">
+          <el-icon><MoreFilled /></el-icon>
+        </div>
       </div>
+      <!--内容-->
+      <chatting-body :message-list="messageOrUserInfo.messageList || []" ref="chattingBodyRef" />
+      <!--底部-->
+      <control-bar :chatting-id="chattingId" />
     </div>
 
-    <!--内容-->
-    <chatting-body v-show="group === 0" :message-list="messageInfo.messageList || []" ref="chattingBodyRef" />
-
-    <!--底部-->
-    <control-bar v-show="group === 0" :chatting-id="chattingId" />
+    <!--用户信息-->
+    <div class="user-info" v-show="group === 1">
+      <user-info-card v-if="messageOrUserInfo.id" :user-info="messageOrUserInfo" :send="true" :del="true" />
+    </div>
   </div>
 </template>
 <script setup lang="ts">
@@ -21,13 +27,14 @@
   import { scrollTo } from '@/utils/utils'
   import ControlBar from '@/views/components/chatting-column/cpns/control-bar/index.vue'
   import ChattingBody from '@/views/components/chatting-column/cpns/chatting-body/index.vue'
+  import UserInfoCard from '@/components/user-info-card/user-info-card.vue'
 
   const chattingBodyRef = ref()
   const user = useUserStore()
   const other = useOtherStore()
   const props = defineProps({
-    //正在聊天的信息和消息列表
-    messageInfo: {
+    //正在聊天的信息和消息列表/用户信息
+    messageOrUserInfo: {
       type: Object,
       default: () => ({})
     },
@@ -56,30 +63,43 @@
     width: 50vw;
     min-width: 540px;
     color: #fff;
-    background-color: $chat-body-color;
+    //background-color: $chat-body-color;
+    background: radial-gradient(circle at 60% 90%, rgba($primary-color, 1), transparent 60%),
+      radial-gradient(circle at 20px 20px, rgba($primary-color, 0.8), transparent 25%), $chat-body-color;
     display: flex;
-    flex-direction: column;
     align-items: center;
+    justify-content: center;
     :global {
-      .chatting-header {
-        border-radius: 10px;
-        margin-top: 5px;
-        width: calc(100% - 10px);
-        padding: 0 20px;
-        background-color: $chat-header-color;
+      .chatting-box {
+        background-color: $chat-body-color;
+        height: 100%;
+        width: 100%;
         display: flex;
+        flex-direction: column;
         align-items: center;
-        box-shadow: 0 5px 8px 0 rgba(#000, 0.5);
-        .chatting-title {
-          line-height: 60px;
-          font-size: 18px;
+        .chatting-header {
+          border-radius: 10px;
+          margin-top: 5px;
+          width: calc(100% - 10px);
+          padding: 0 20px;
+          background-color: $chat-header-color;
+          display: flex;
+          align-items: center;
+          box-shadow: 0 5px 8px 0 rgba(#000, 0.5);
+          .chatting-title {
+            line-height: 60px;
+            font-size: 18px;
+          }
+          .more-info {
+            cursor: pointer;
+            margin-left: auto;
+            color: #eee;
+            font-size: 22px;
+          }
         }
-        .more-info {
-          cursor: pointer;
-          margin-left: auto;
-          color: #eee;
-          font-size: 22px;
-        }
+      }
+      .user-info {
+        width: 400px;
       }
     }
   }

@@ -86,7 +86,8 @@
       self: true,
       avatar: 'https://picsum.photos/300/300?id=4',
       userName: '西兰花',
-      address: '杭州',
+      address: '浙江',
+      city: '杭州',
       time: '11:48',
       message: state.inputValue
     })

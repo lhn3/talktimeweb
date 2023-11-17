@@ -91,7 +91,7 @@
     align-items: center;
     justify-content: center;
     position: relative;
-    overflow: hidden;
+    overflow: scroll;
     :global {
       .home-container {
         opacity: 0.97;

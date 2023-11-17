@@ -4,38 +4,52 @@
       <el-input v-model="searchValue" placeholder="搜索" :prefix-icon="Search" clearable />
       <el-icon size="30"><CirclePlusFilled /></el-icon>
     </div>
-    <div class="list-box">
-      <div
-        class="list-item"
-        :style="{ backgroundColor: chattingId === item.id ? 'rgba(0,0,0,0.3)' : '' }"
+    <!--当前聊天-->
+    <div class="list-box" v-show="group === 0">
+      <user-item
         v-for="item in groupInfoList"
         :key="item.id"
-        @click="handelClick(item.id)"
-      >
-        <el-avatar
-          shape="circle"
-          :size="50"
-          fit="cover"
-          :src="item.avatar || 'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png'"
+        :id="item.id"
+        :check-id="chattingId"
+        :avatar="item.avatar"
+        :user-name="item.userName"
+        :msg="item.lastMessage"
+        :time="item.lastMessageTime"
+        @click="chattingIdClick(item.id)"
+      />
+    </div>
+    <!--好友列表-->
+    <div class="list-box" v-show="group === 1">
+      <template v-for="itemGroup in groupInfoList" :key="itemGroup.initial">
+        <div class="group-initial">{{ itemGroup.initial }}</div>
+        <user-item
+          v-for="item in itemGroup.list"
+          :key="item.id"
+          :id="item.id"
+          :check-id="userId"
+          :avatar="item.avatar"
+          :user-name="item.userName"
+          @click="userIdClick(item.id)"
         />
-        <div class="user-info">
-          <div class="user-name text-nowrap">{{ item.userName }}</div>
-          <div class="user-msg text-nowrap">{{ item.lastMessage }}</div>
-        </div>
-        <div class="send-time">{{ item.lastMessageTime }}</div>
-      </div>
+      </template>
     </div>
   </div>
 </template>
 <script setup lang="ts">
   import { ref, defineProps, defineEmits, nextTick } from 'vue'
   import { Search } from '@element-plus/icons-vue'
+  import UserItem from '@/components/user-item/user-item.vue'
   import { scrollTo } from '@/utils/utils'
   import { useOtherStore } from '@/stores'
 
   const other = useOtherStore()
-  const emit = defineEmits(['changeChattingId'])
+  const emit = defineEmits(['changeChattingId', 'changeUserId'])
   const props = defineProps({
+    // 分组
+    group: {
+      type: Number,
+      default: 0
+    },
     // 列表信息
     groupInfoList: {
       type: Array,
@@ -45,15 +59,23 @@
     chattingId: {
       type: Number,
       required: true
+    },
+    // 当前选中的好友用户id
+    userId: {
+      type: Number,
+      required: true
     }
   })
 
   /**选择某个人聊天*/
-  const handelClick = (id: number) => {
+  const chattingIdClick = (id: number) => {
     emit('changeChattingId', id)
     // 滚动到最底部
     nextTick(() => scrollTo(other.otherInfo.chattingBodyDom))
   }
+
+  /**选择某个用户*/
+  const userIdClick = (id: number) => emit('changeUserId', id)
 
   const searchValue = ref<any>()
 </script>
@@ -94,36 +116,14 @@
         height: calc(100% - 65px);
         overflow-y: scroll;
         overflow-x: hidden;
-        .list-item {
-          user-select: none;
-          cursor: pointer;
-          display: flex;
-          align-items: center;
-          padding: 8px;
-          margin: 5px;
-          border-radius: 8px;
-          background-color: rgba(225, 225, 225, 0.1);
-          transition: all 0.3s;
-          .user-info {
-            flex: 1;
-            margin: 0 10px;
-            .user-name {
-              color: #fff;
-              font-size: 15px;
-              line-height: 30px;
-            }
-            .user-msg {
-              color: #999;
-              font-size: 13px;
-            }
-          }
-          .send-time {
-            color: #999;
-            font-size: 13px;
-          }
-        }
-        .list-item:hover {
-          background-color: rgba(225, 225, 225, 0.3);
+        .group-initial {
+          color: #999;
+          font-size: 14px;
+          padding-left: 10px;
+          line-height: 28px;
+          background-color: $primary-color2;
+          position: sticky;
+          top: 0;
         }
       }
     }

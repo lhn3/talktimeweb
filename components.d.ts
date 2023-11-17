@@ -8,6 +8,7 @@ export {}
 declare module 'vue' {
   export interface GlobalComponents {
     BirdButton: typeof import('./src/components/bird-button/bird-button.vue')['default']
+    BridgeBg: typeof import('./src/components/bridge-bg/index.vue')['default']
     ElAvatar: typeof import('element-plus/es')['ElAvatar']
     ElButton: typeof import('element-plus/es')['ElButton']
     ElCarousel: typeof import('element-plus/es')['ElCarousel']
@@ -20,8 +21,11 @@ declare module 'vue' {
     LoginDialog: typeof import('./src/components/login-dialog/login-dialog.vue')['default']
     LogoSvg: typeof import('./src/components/logo-svg/logo-svg.vue')['default']
     ParticleBg: typeof import('./src/components/particle-bg/particle-bg.vue')['default']
+    RippleFloatOnTheWater: typeof import('./src/components/RippleFloatOnTheWater/index.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    UserInfoCard: typeof import('./src/components/user-info-card/user-info-card.vue')['default']
+    UserItem: typeof import('./src/components/user-item/user-item.vue')['default']
   }
   export interface ComponentCustomProperties {
     vLoading: typeof import('element-plus/es')['ElLoadingDirective']
