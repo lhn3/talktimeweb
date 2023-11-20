@@ -55,6 +55,7 @@
           display: flex;
           flex-direction: column;
           .user-info {
+            width: fit-content;
             user-select: none;
             font-size: 13px;
             margin-bottom: 10px;

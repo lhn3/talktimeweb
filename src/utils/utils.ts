@@ -185,4 +185,20 @@ export const scrollTo = (dom: any, position: string = 'top', value: number | nul
 export const getToken = () => {
   return user.userInfo.token || false
 }
+
+/**获取光标位置*/
+export const getCursorCoordinates = () => {
+  let rect, offset
+  if (window.getSelection && window.getSelection().rangeCount > 0) {
+    const range = window.getSelection().getRangeAt(0)
+    offset = range.startOffset
+    rect = range.getBoundingClientRect()
+    return {
+      left: rect.left,
+      top: rect.top,
+      offset: offset
+    }
+  }
+  return {}
+}
 export { deepClone } from '@/utils/deepClone'

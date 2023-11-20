@@ -19,9 +19,13 @@
     modelValue: {
       type: String,
       required: true
+    },
+    currentValue: {
+      type: String,
+      required: true
     }
   })
-  const emit = defineEmits(['update:modelValue', 'submit'])
+  const emit = defineEmits(['update:modelValue', 'update:currentValue', 'submit'])
   const inputControlRef = ref()
 
   onMounted(() => {
@@ -32,7 +36,10 @@
   const handelClick = () => {}
 
   /**输入内容改变*/
-  const inputChange = (e: any) => emit('update:modelValue', e.target.innerText)
+  const inputChange = (e: any) => {
+    emit('update:currentValue', e.data)
+    emit('update:modelValue', e.target.innerText)
+  }
 
   /**enter发送*/
   const submit = () => emit('submit')

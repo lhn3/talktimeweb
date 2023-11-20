@@ -18,6 +18,7 @@ declare module 'vue' {
     ElInput: typeof import('element-plus/es')['ElInput']
     ElPopover: typeof import('element-plus/es')['ElPopover']
     ElTag: typeof import('element-plus/es')['ElTag']
+    ElTooltip: typeof import('element-plus/es')['ElTooltip']
     LoginDialog: typeof import('./src/components/login-dialog/login-dialog.vue')['default']
     LogoSvg: typeof import('./src/components/logo-svg/logo-svg.vue')['default']
     ParticleBg: typeof import('./src/components/particle-bg/particle-bg.vue')['default']

@@ -168,10 +168,14 @@ export const moveCursor = (dom: any) => {
  */
 export const scrollTo = (dom: any, position: string = 'top', value: number | null = null): void => {
   const scrollHeight: number = dom.scrollHeight
+  const scrollWidth: number = dom.scrollWidth
   const clientHeight: number = dom.clientHeight
   const clientWidth: number = dom.clientWidth
+  // 默认滚动到最底部和最右侧
   if (position === 'top') {
-    dom.scrollTop = scrollHeight - clientHeight
+    dom.scrollTop = value ?? scrollHeight - clientHeight
+  } else {
+    dom.scrollLeft = value ?? scrollWidth - clientWidth
   }
 }
 
@@ -180,5 +184,21 @@ export const scrollTo = (dom: any, position: string = 'top', value: number | nul
  */
 export const getToken = () => {
   return user.userInfo.token || false
+}
+
+/**获取光标位置*/
+export const getCursorCoordinates = () => {
+  let rect, offset
+  if (window.getSelection && window.getSelection().rangeCount > 0) {
+    let range = window.getSelection().getRangeAt(0)
+    offset = range.startOffset
+    rect = range.getBoundingClientRect()
+    return {
+      left: rect.left,
+      top: rect.top,
+      offset: offset
+    }
+  }
+  return {}
 }
 export { deepClone } from '@/utils/deepClone'

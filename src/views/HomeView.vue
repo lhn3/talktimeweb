@@ -1,7 +1,6 @@
 <template>
   <div :class="$style['home']">
     <!--背景-->
-    <!--    <particle-bg />-->
     <bridge-bg />
 
     <!--聊天窗口-->
@@ -20,7 +19,12 @@
       />
 
       <!--聊天框-->
-      <chatting-column :message-or-user-info="messageOrUserInfo" :chatting-id="state.chattingId" :group="state.group" />
+      <chatting-column
+        :message-info="messageInfo"
+        :user-info="userInfo"
+        :chatting-id="state.chattingId"
+        :group="state.group"
+      />
 
       <!--群聊或个人信息（可隐藏）-->
       <information-column />
@@ -28,7 +32,6 @@
   </div>
 </template>
 <script setup lang="ts">
-  import ParticleBg from '@/components/particle-bg/particle-bg.vue'
   import BridgeBg from '@/components/bridge-bg/index.vue'
   import GroupSettingsColumn from '@/views/components/group-settings-column/index.vue'
   import ListColumn from '@/views/components/list-column/index.vue'
@@ -58,25 +61,22 @@
     }
   })
 
-  //当前的消息列表和当前用户的信息
-  const messageOrUserInfo = computed(() => {
-    if (state.group === 0) {
-      // 获取选中的正在聊天的信息和消息列表
-      return user.userInfo.messageBox?.find((item: any) => item.id === state.chattingId)
-    } else if (state.group === 1) {
-      // 获取不同首字母下当前选中的用户信息
-      let info = {}
-      user.userInfo.friendList?.find((item: any) => {
-        let r = item.list?.find((i: any) => i.id === state.userId)
-        if (r) {
-          info = r
-          return true
-        }
-      })
-      return info
-    } else {
-      return {}
-    }
+  //当前的消息列表，获取选中的正在聊天的信息和消息列表
+  const messageInfo = computed(() => {
+    return user.userInfo.messageBox?.find((item: any) => item.id === state.chattingId)
+  })
+
+  //当前用户的信息，获取不同首字母下当前选中的用户信息
+  const userInfo = computed(() => {
+    let info = {}
+    user.userInfo.friendList?.find((item: any) => {
+      let r = item.list?.find((i: any) => i.id === state.userId)
+      if (r) {
+        info = r
+        return true
+      }
+    })
+    return info
   })
 </script>
 <style module lang="scss">
