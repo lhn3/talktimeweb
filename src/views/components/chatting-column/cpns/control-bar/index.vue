@@ -35,7 +35,14 @@
     <send-control :input-value="state.inputValue" @submit="send" />
 
     <!--人员选择弹窗-->
-    <at-dialog v-model="state.chooseUserVisible" :left="state.left" :top="state.top" />
+    <at-dialog
+      v-model="state.chooseUserVisible"
+      :left="state.left"
+      :top="state.top"
+      :user-list="state.userFilterList"
+      :at-all="state.canAtAll"
+      @select-user="selectUser"
+    />
   </div>
 </template>
 <script setup>
@@ -44,12 +51,11 @@
   import SpeakControl from '@/views/components/chatting-column/cpns/control-bar/cpns/speak-control.vue'
   import EmojiControl from '@/views/components/chatting-column/cpns/control-bar/cpns/emoji-control.vue'
   import SendControl from '@/views/components/chatting-column/cpns/control-bar/cpns/send-control.vue'
-  import { useUserStore, useOtherStore } from '@/stores'
-  import { scrollTo, getCursorCoordinates } from '@/utils/utils'
+  import { useUserStore } from '@/stores'
+  import { scrollToBottom, getCursorCoordinates, moveCursor } from '@/utils/utils'
   import AtDialog from '@/views/components/chatting-column/cpns/control-bar/cpns/at-dialog.vue'
 
   const user = useUserStore()
-  const other = useOtherStore()
   const props = defineProps({
     chattingId: {
       type: Number,
@@ -63,6 +69,11 @@
 
     // 选择人员弹窗
     chooseUserVisible: false,
+    canAtAll: true, //能否艾特全体成员
+    sliceStr: '', //需要被替换掉的字符串
+    sliceOffset: 0, //切割字符串才用到的光标的最后一次位置
+    userList: [], //选择人员总列表
+    userFilterList: [], //选择人员过滤的列表
     left: 0, //选择人员弹窗的位置
     top: 0,
 
@@ -81,6 +92,18 @@
     }
   }
 
+  state.userList = [
+    { avatar: 'https://picsum.photos/300/300?id=1', userName: '张三', id: 1 },
+    { avatar: 'https://picsum.photos/300/300?id=2', userName: '李四', id: 2 },
+    { avatar: 'https://picsum.photos/300/300?id=3', userName: '王五', id: 3 },
+    { avatar: 'https://picsum.photos/300/300?id=4', userName: 'hsdik', id: 4 },
+    { avatar: 'https://picsum.photos/300/300?id=5', userName: 'Lin', id: 5 },
+    { avatar: 'https://picsum.photos/300/300?id=6', userName: 'xixi', id: 6 },
+    { avatar: 'https://picsum.photos/300/300?id=7', userName: '东方', id: 7 },
+    { avatar: 'https://picsum.photos/300/300?id=8', userName: '富贵', id: 8 },
+    { avatar: 'https://picsum.photos/300/300?id=9', userName: '山花不懂茶', id: 9 }
+  ]
+
   /**
    * 获取当前位置到前一个@的所有字符
    * 并过滤人员数组
@@ -88,38 +111,43 @@
   const getBeforeAtStr = () => {
     let strArr = []
     let offset = getCursorCoordinates().offset
-    while (state.inputValue[offset - 1] !== '@') {
+    while (offset > 0 && state.inputValue[offset - 1] !== '@') {
       strArr.unshift(state.inputValue[offset - 1])
       offset--
     }
     let str = strArr.join('')
-    console.log(str)
+    // 记录需要被过滤的值
+    state.sliceStr = '@' + str
+    // 过滤数组
+    state.userFilterList = state.userList.filter(item => item.userName.includes(str))
   }
 
   /**监听内容变化，出现@则弹出人员选择div*/
   watch(
     () => state.inputValue,
     (_, oldValue) => {
-      // 删除@字符的时候
       if (!state.currentValue && state.chooseUserVisible) {
+        /**删除@字符的时候*/
         let offset = getCursorCoordinates().offset
         if (oldValue[offset] === '@') {
           state.chooseUserVisible = false
         } else {
-          //过滤当前人员列表
-          getBeforeAtStr()
+          getBeforeAtStr() //过滤当前人员列表
         }
       } else if (state.currentValue === '@') {
-        // 下一个字符输入的是@
+        //记录光标最后一次位置
+        state.sliceOffset = getCursorCoordinates().offset
+        /**下一个字符输入的是@*/
         let { left, top } = getCursorCoordinates()
         state.left = left
         state.top = top
         state.chooseUserVisible = true
-        //过滤当前人员列表
-        getBeforeAtStr()
+        getBeforeAtStr() //过滤当前人员列表
       } else if (state.chooseUserVisible) {
-        //过滤当前人员列表
-        getBeforeAtStr()
+        //记录光标最后一次位置
+        state.sliceOffset = getCursorCoordinates().offset
+        /**艾特人员的弹窗展示的时候*/
+        getBeforeAtStr() //过滤当前人员列表
       }
     }
   )
@@ -144,6 +172,21 @@
     })
   }
 
+  /**选择了某个人*/
+  const selectUser = value => {
+    moveCursor()
+    // 创建@元素
+    let dom = `<button class="at-btn" contenteditable="false" data-info="${JSON.stringify(value)}">@${
+      value.userName
+    }</button>`
+    // 清空此部分内容并加入@
+    state.inputValue =
+      state.inputValue.slice(0, state.sliceOffset - state.sliceStr.length) +
+      dom +
+      state.inputValue.slice(state.sliceOffset, state.inputValue.length - 1)
+  }
+
+  /**发送信息*/
   const send = async () => {
     let result = await showTip()
     if (!result) return
@@ -158,9 +201,13 @@
       time: '11:48',
       message: state.inputValue
     })
-    // 滚动到最底部
-    nextTick(() => scrollTo(other.otherInfo.chattingBodyDom))
     state.inputValue = ''
+    nextTick(() => {
+      // 滚动到最底部
+      scrollToBottom()
+      // 获取焦点
+      moveCursor()
+    })
   }
 </script>
 <style module lang="scss">

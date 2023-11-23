@@ -1,10 +1,39 @@
 <template>
-  <div :class="$style['at-dialog']" v-show="modelValue" :style="{ top: `${top - 245}px`, left: `${left}px` }">111</div>
+  <div
+    :class="$style['at-dialog']"
+    ref="atDialogRef"
+    v-show="modelValue"
+    :style="{ top: `${offsetTop}px`, left: `${left}px` }"
+  >
+    <!--全体成员-->
+    <div v-if="atAll" class="at-all">
+      <div class="at-user" @click="handelClick({ id: 0, userName: '全体成员' })">
+        <div class="at-avatar">
+          <svg-icon name="icon-nav_client" size="20px" color="#fff" />
+        </div>
+        <div class="at-userName">全体成员</div>
+      </div>
+      <div class="at-tip" v-if="userList.length">群成员</div>
+    </div>
+
+    <!--用户列表-->
+    <div class="at-user" v-for="item in userList" :key="item.id" @click="handelClick(item)">
+      <el-avatar
+        shape="circle"
+        :size="34"
+        fit="cover"
+        :src="item.avatar || 'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png'"
+      />
+      <div class="at-userName">{{ item.userName }}</div>
+    </div>
+  </div>
 </template>
 <script setup lang="ts">
-  import { defineProps, defineEmits, watch } from 'vue'
+  import { defineProps, defineEmits, watch, ref, nextTick } from 'vue'
 
-  const emit = defineEmits(['update:modelValue'])
+  const offsetTop = ref(0)
+  const atDialogRef = ref({})
+  const emit = defineEmits(['update:modelValue', 'selectUser'])
   const props = defineProps({
     // 是否显示
     modelValue: {
@@ -18,8 +47,29 @@
     top: {
       type: Number,
       default: 0
+    },
+    // 人员列表
+    userList: {
+      type: Array,
+      default: () => []
+    },
+    // 能否艾特全体成员
+    atAll: {
+      type: Boolean,
+      default: false
     }
   })
+
+  /**监控数组变化控制弹窗位置*/
+  watch(
+    () => props.userList,
+    () => {
+      nextTick(() => (offsetTop.value = props.top - 5 - atDialogRef.value?.offsetHeight))
+    },
+    {
+      deep: true
+    }
+  )
 
   /**监听window点击，并关闭弹窗*/
   watch(
@@ -32,21 +82,56 @@
       }
     }
   )
+
+  /**选择人员*/
+  const handelClick = (item: any) => emit('selectUser', item)
 </script>
 
 <style module lang="scss">
   .at-dialog {
     position: fixed;
-    background-color: white;
     border-radius: 6px;
     width: 180px;
-    height: 240px;
-    background-color: rgba(0, 0, 0, 0.5);
+    max-height: 240px;
+    background: $black-bg;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    opacity: 0.9;
     z-index: 999;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    //transition: all 0.3s;
     :global {
+      .at-all {
+        .at-tip {
+          color: #999999;
+          font-size: 12px;
+          padding: 0 5px;
+          line-height: 24px;
+        }
+      }
+      .at-user {
+        display: flex;
+        align-items: center;
+        padding: 0 5px;
+        cursor: pointer;
+        background-color: transparent;
+        transition: all 0.3s;
+        .at-avatar {
+          height: 32px;
+          aspect-ratio: 1/1;
+          background-color: #0d84ff;
+          border-radius: 50%;
+          line-height: 32px;
+          text-align: center;
+        }
+        .at-userName {
+          line-height: 44px;
+          margin-left: 10px;
+          font-size: 13px;
+        }
+      }
+      .at-user:hover {
+        background-color: rgba(#999999, 0.5);
+      }
     }
   }
 </style>

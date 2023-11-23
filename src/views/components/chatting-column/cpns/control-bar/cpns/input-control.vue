@@ -1,11 +1,11 @@
 <template>
   <div
     ref="inputControlRef"
+    autofocus
     :class="$style['input-control']"
     contenteditable="true"
     v-text="modelValue"
     placeholder="来聊点什么吧~"
-    @click="handelClick"
     @input="inputChange"
     @keyup.enter="submit"
   ></div>
@@ -14,7 +14,9 @@
 <script setup lang="ts">
   import { ref, defineProps, defineEmits, onMounted } from 'vue'
   import { moveCursor } from '@/utils/utils'
+  import { useOtherStore } from '@/stores'
 
+  const other = useOtherStore()
   const props = defineProps({
     modelValue: {
       type: String,
@@ -29,11 +31,10 @@
   const inputControlRef = ref()
 
   onMounted(() => {
-    moveCursor(inputControlRef.value)
+    //将dom记录到vuex
+    other.otherInfo.inputDom = inputControlRef.value
+    moveCursor()
   })
-
-  /**点击div聚焦*/
-  const handelClick = () => {}
 
   /**输入内容改变*/
   const inputChange = (e: any) => {
@@ -42,7 +43,9 @@
   }
 
   /**enter发送*/
-  const submit = () => emit('submit')
+  const submit = () => {
+    emit('submit')
+  }
 </script>
 
 <style module lang="scss">
@@ -64,6 +67,16 @@
     word-break: break-all;
     overflow-y: scroll;
     overflow-x: hidden;
+    :global {
+      .at-btn {
+        background-color: transparent;
+        border: none;
+        color: $url-color;
+        line-height: 20px;
+        padding: 0;
+        margin: 0;
+      }
+    }
   }
   .input-control:focus-visible {
     outline: none;

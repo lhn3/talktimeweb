@@ -1,5 +1,7 @@
-import { useUserStore } from '@/stores'
+import { useUserStore, useOtherStore } from '@/stores'
+
 const user: any = useUserStore()
+const other: any = useOtherStore()
 
 /**
  * 检查是否有权限
@@ -146,12 +148,11 @@ export const throttle = (fn: Function, time: number, first: boolean = true, last
   }
 }
 
-/**
- * 将光标移动到最后
- * @param dom
- */
-export const moveCursor = (dom: any) => {
-  dom.focus()
+/**获取焦点，并将光标移动到最后*/
+export const moveCursor = (): void => {
+  const dom: any = other.otherInfo.inputDom
+  dom.click()
+  // dom.focus()
   //ie11 10 9 ff safari
   if (window.getSelection) {
     const range = window.getSelection() //创建range
@@ -160,23 +161,13 @@ export const moveCursor = (dom: any) => {
   }
 }
 
-/**
- * 将滚动条滚动到指定位置
- * @param dom dom节点
- * @param position top | left
- * @param value 距离位置的值
- */
-export const scrollTo = (dom: any, position: string = 'top', value: number | null = null): void => {
+/**将聊天窗的滚动条滚动到底部*/
+export const scrollToBottom = (): void => {
+  const dom: any = other.otherInfo.chattingBodyDom
   const scrollHeight: number = dom.scrollHeight
-  const scrollWidth: number = dom.scrollWidth
   const clientHeight: number = dom.clientHeight
-  const clientWidth: number = dom.clientWidth
-  // 默认滚动到最底部和最右侧
-  if (position === 'top') {
-    dom.scrollTop = value ?? scrollHeight - clientHeight
-  } else {
-    dom.scrollLeft = value ?? scrollWidth - clientWidth
-  }
+  //滚动到最底部
+  dom.scrollTop = scrollHeight - clientHeight
 }
 
 /**
@@ -194,8 +185,10 @@ export const getCursorCoordinates = () => {
     offset = range.startOffset
     rect = range.getBoundingClientRect()
     return {
+      // 在整个窗口的位置
       left: rect.left,
       top: rect.top,
+      // 光标位置
       offset: offset
     }
   }

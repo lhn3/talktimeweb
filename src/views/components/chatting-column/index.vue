@@ -27,9 +27,9 @@
   </div>
 </template>
 <script setup lang="ts">
-  import { onMounted, ref, defineProps } from 'vue'
+  import { onMounted, ref, defineProps, nextTick } from 'vue'
   import { useUserStore, useOtherStore } from '@/stores'
-  import { scrollTo } from '@/utils/utils'
+  import { scrollToBottom } from '@/utils/utils'
   import ControlBar from '@/views/components/chatting-column/cpns/control-bar/index.vue'
   import ChattingBody from '@/views/components/chatting-column/cpns/chatting-body/index.vue'
   import UserInfoCard from '@/components/user-info-card/user-info-card.vue'
@@ -60,10 +60,10 @@
   })
 
   onMounted(() => {
-    // 滚动到最底部
-    scrollTo(chattingBodyRef.value.$el)
-    //将dom记录到vue
+    //将dom记录到vuex
     other.otherInfo.chattingBodyDom = chattingBodyRef.value.$el
+    // 滚动到最底部
+    scrollToBottom()
   })
 </script>
 

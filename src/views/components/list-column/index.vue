@@ -39,10 +39,8 @@
   import { ref, defineProps, defineEmits, nextTick } from 'vue'
   import { Search } from '@element-plus/icons-vue'
   import UserItem from '@/components/user-item/user-item.vue'
-  import { scrollTo } from '@/utils/utils'
-  import { useOtherStore } from '@/stores'
+  import { scrollToBottom } from '@/utils/utils'
 
-  const other = useOtherStore()
   const emit = defineEmits(['changeChattingId', 'changeUserId'])
   const props = defineProps({
     // 分组
@@ -71,7 +69,7 @@
   const chattingIdClick = (id: number) => {
     emit('changeChattingId', id)
     // 滚动到最底部
-    nextTick(() => scrollTo(other.otherInfo.chattingBodyDom))
+    nextTick(() => scrollToBottom())
   }
 
   /**选择某个用户*/
