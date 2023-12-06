@@ -1,23 +1,23 @@
-import { computed, reactive } from 'vue'
+import { reactive } from 'vue'
 import { defineStore } from 'pinia'
-import { messageBox, friendList } from '@/stores/test'
 
 export const useUserStore = defineStore('user', () => {
   const userInfo = reactive({
-    index: 0,
     id: null,
+    avatar: '',
     username: '',
     permissions: [],
     token: '',
+
     // 是否展示更多数据列
     isShowMoreInfo: false,
-    friendList: [] as any,
-    messageBox: [] as any
+    //当前组，0聊天，1好友，2群聊
+    group: 0,
+    //当前聊天的id
+    chattingId: 1,
+    //当前好友的id
+    userId: 0
   })
-  const doubleCount = computed(() => userInfo.index + 1)
-
-  userInfo.friendList = friendList
-  userInfo.messageBox = messageBox
 
   /**展示隐藏更多列表*/
   const changeShowMore = () => (userInfo.isShowMoreInfo = !userInfo.isShowMoreInfo)
@@ -31,5 +31,5 @@ export const useUserStore = defineStore('user', () => {
     })
   }
 
-  return { userInfo, doubleCount, changeShowMore, addMessage }
+  return { userInfo, changeShowMore, addMessage }
 })

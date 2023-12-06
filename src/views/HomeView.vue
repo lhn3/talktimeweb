@@ -12,22 +12,17 @@
       <list-column
         :group="state.group"
         :user-id="state.userId"
-        :group-info-list="groupInfoList"
         :chatting-id="state.chattingId"
+        :group-info-list="groupInfoList"
         @change-chatting-id="id => (state.chattingId = id)"
         @change-user-id="id => (state.userId = id)"
       />
 
       <!--聊天框-->
-      <chatting-column
-        :message-info="messageInfo"
-        :user-info="userInfo"
-        :chatting-id="state.chattingId"
-        :group="state.group"
-      />
+      <chatting-column :chatting-id="state.chattingId" :user-id="state.userId" :group="state.group" />
 
       <!--群聊或个人信息（可隐藏）-->
-      <information-column />
+      <information-column :chatting-id="state.chattingId" />
     </div>
   </div>
 </template>
@@ -38,45 +33,43 @@
   import ChattingColumn from '@/views/components/chatting-column/index.vue'
   import InformationColumn from '@/views/components/information-column/index.vue'
   import { useUserStore } from '@/stores'
-  import { computed, reactive } from 'vue'
+  import { computed, onMounted, reactive } from 'vue'
+  import { getToken } from '@/utils/utils'
+  import { messageBox, friendList } from '@/stores/test'
 
   const user = useUserStore()
   const state = reactive({
     group: 0, //当前组，0聊天，1好友，2群聊
 
-    chattingId: 1, //当前聊天的id
-    userId: 0 //当前好友的id
+    chattingId: 0, //当前聊天的id
+    userId: 0, //当前好友的id
+
+    friendList: [],
+    messageBox: []
   })
 
-  //当前的分组的信息
-  const groupInfoList = computed(() => {
-    if (state.group === 0) {
-      // 当前聊天的列表人员
-      return user.userInfo.messageBox
-    } else if (state.group === 1) {
-      // 好友列表人员
-      return user.userInfo.friendList
+  /**获取所有正在聊天的人和好友列表*/
+  onMounted(() => {
+    if (getToken()) {
+      state.friendList = friendList
+      state.messageBox = messageBox
     } else {
-      return []
+      state.friendList = []
+      state.messageBox = []
     }
   })
 
-  //当前的消息列表，获取选中的正在聊天的信息和消息列表
-  const messageInfo = computed(() => {
-    return user.userInfo.messageBox?.find((item: any) => item.id === state.chattingId)
-  })
-
-  //当前用户的信息，获取不同首字母下当前选中的用户信息
-  const userInfo = computed(() => {
-    let info = {}
-    user.userInfo.friendList?.find((item: any) => {
-      let r = item.list?.find((i: any) => i.id === state.userId)
-      if (r) {
-        info = r
-        return true
-      }
-    })
-    return info
+  /**当前的分组的信息*/
+  const groupInfoList = computed(() => {
+    if (state.group === 0) {
+      // 当前聊天的列表人员
+      return state.messageBox
+    } else if (state.group === 1) {
+      // 好友列表人员
+      return state.friendList
+    } else {
+      return []
+    }
   })
 </script>
 <style module lang="scss">

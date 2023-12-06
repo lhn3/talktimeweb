@@ -72,8 +72,12 @@
   import BirdButton from '@/components/bird-button/bird-button.vue'
   import VueQr from 'vue-qr/src'
   import { ElMessage } from 'element-plus'
-  import { isType } from '@/utils/utils'
+  import { isType, getUuid } from '@/utils/utils'
+  import avatar from '@/assets/img/avatar.jpg'
+  import localCache from '@/utils/cache'
+  import { useUserStore } from '@/stores'
 
+  const user = useUserStore()
   const carouselRef = ref()
   const emit = defineEmits(['update:modelValue'])
   const props = defineProps({
@@ -115,8 +119,15 @@
 
   /**登录*/
   const toLogin = () => {
-    if (!isType('mobile', state.phone)) return ElMessage.error('请输入正确的手机号码！')
-    if (!isType('code', state.code)) return ElMessage.error('请输入正确的验证码！')
+    // if (!isType('mobile', state.phone)) return ElMessage.error('请输入正确的手机号码！')
+    // if (!isType('code', state.code)) return ElMessage.error('请输入正确的验证码！')
+    user.userInfo.id = 666
+    user.userInfo.username = '西兰花🥦'
+    user.userInfo.avatar = avatar
+    user.userInfo.permissions = []
+    user.userInfo.token = getUuid()
+    localCache.setCache('talkTime-userInfo', user.userInfo)
+    window.location.reload()
   }
 
   /**重置信息*/

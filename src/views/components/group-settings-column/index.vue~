@@ -81,10 +81,7 @@
   }
 
   /**点击不同分组*/
-  const tabClick = (id: number) => {
-    user.userInfo.isShowMoreInfo = false
-    emit('update:modelValue', id)
-  }
+  const tabClick = (id: number) => emit('update:modelValue', id)
 </script>
 
 <style module lang="scss">

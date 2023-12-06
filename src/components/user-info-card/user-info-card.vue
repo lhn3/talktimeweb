@@ -11,11 +11,59 @@
     <div class="card-info">
       <el-avatar shape="circle" :size="60" fit="cover" :src="userInfo.avatar || ''" />
       <div class="info">
-        <div class="info-userName text-nowrap">{{ userInfo.userName }}</div>
-        <div class="info-other text-nowrap">id：{{ userInfo.id }}</div>
+        <div class="info-userName text-nowrap">
+          {{ userInfo.remake ? userInfo.remake : userInfo.userName }}
+          <svg-icon v-if="userInfo.sex === 0" name="icon-nv" color="#f56c6c" svg-style="margin-left: 5px" />
+          <svg-icon v-if="userInfo.sex === 1" name="icon-nan" color="#42a3f6" svg-style="margin-left: 5px" />
+        </div>
+        <div class="info-other text-nowrap" v-if="userInfo.remake">昵称：{{ userInfo.userName }}</div>
+        <!--        <div class="info-other text-nowrap">id：{{ _userInfo.id }}</div>-->
         <div class="info-other text-nowrap">地区：{{ userInfo.address }}&ensp;{{ userInfo.city }}</div>
       </div>
     </div>
+
+    <div class="user-setting">
+      <div class="setting-item">
+        <text>备注</text>
+        <el-input
+          style="width: 40%"
+          :maxlength="15"
+          placeholder="点击添加备注"
+          v-model="_userInfo.remake"
+          @blur="handelChange(_userInfo.remake, 'remake')"
+        />
+      </div>
+      <div class="setting-item">
+        <text>消息免打扰</text>
+        <el-switch
+          :active-value="true"
+          :inactive-value="false"
+          v-model="_userInfo.isQuite"
+          @change="v => handelChange(v, 'isQuite')"
+        />
+      </div>
+      <div class="setting-item">
+        <text>置顶聊天</text>
+        <el-switch
+          :active-value="true"
+          :inactive-value="false"
+          v-model="_userInfo.isTop"
+          @change="v => handelChange(v, 'isTop')"
+        />
+      </div>
+    </div>
+
+    <div class="user-setting">
+      <div v-if="userInfo.selfStyle" class="setting-item" style="justify-content: flex-start">
+        <text>个性签名</text>
+        <div>{{ userInfo.selfStyle }}</div>
+      </div>
+      <div class="setting-item" style="justify-content: flex-start">
+        <text>来源</text>
+        <div>{{ userInfo.from }}</div>
+      </div>
+    </div>
+
     <div class="user-control">
       <div v-if="send" class="ctr-item">
         <svg-icon name="icon-xiaoxi" size="36px" color="#42a3f6" />
@@ -33,9 +81,9 @@
   </div>
 </template>
 <script setup lang="ts">
-  import { defineProps } from 'vue'
-  import SvgIcon from '@/components/svg-icon/svg-icon.vue'
+  import { defineProps, defineEmits, ref, watch } from 'vue'
 
+  const emit = defineEmits(['refreshInfo'])
   const props = defineProps({
     // 是否作为弹出展示
     popover: {
@@ -60,6 +108,27 @@
       default: false
     }
   })
+
+  const _userInfo = ref({})
+  watch(
+    () => props.userInfo,
+    value => {
+      if (!value) return
+      _userInfo.value = { ...value }
+    },
+    {
+      deep: true,
+      immediate: true
+    }
+  )
+
+  /**改变备注，置顶，免打扰*/
+  const handelChange = (value: any, type: string) => {
+    //发送请求请求改变数据
+    console.log(value)
+    // 重新请求数据
+    emit('refreshUserInfo', { ..._userInfo.value, [type]: value })
+  }
 </script>
 
 <style module lang="scss">
@@ -87,11 +156,53 @@
             font-size: 15px;
             margin-bottom: 10px;
             color: #fff;
+            display: flex;
+            align-items: center;
           }
           .info-other {
             color: #999999;
             font-size: 12px;
             margin: 5px 0;
+          }
+        }
+      }
+      .user-setting {
+        border-bottom: 1px solid #999;
+        padding: 10px 0;
+        .setting-item {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          min-height: 35px;
+          font-size: 14px;
+          text {
+            color: #aaa;
+            min-width: 100px;
+          }
+          div {
+            word-wrap: break-word;
+            word-break: break-all;
+          }
+          .el-input__wrapper {
+            background-color: transparent;
+            box-shadow: none;
+            .el-input__inner {
+              color: #fff;
+              text-align: right;
+            }
+          }
+          .el-input__wrapper.is-focus {
+            box-shadow: 0 0 0 1px #42a3f6 inset;
+          }
+          .el-input__wrapper:focus-visible {
+            outline: none;
+          }
+          //switch样式修改
+          .el-switch__core {
+            background: transparent;
+          }
+          .el-switch.is-checked .el-switch__core {
+            background-color: #42a3f6;
           }
         }
       }

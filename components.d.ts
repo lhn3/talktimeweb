@@ -10,26 +10,20 @@ declare module 'vue' {
     BirdButton: typeof import('./src/components/bird-button/bird-button.vue')['default']
     BridgeBg: typeof import('./src/components/bridge-bg/index.vue')['default']
     ElAvatar: typeof import('element-plus/es')['ElAvatar']
-    ElButton: typeof import('element-plus/es')['ElButton']
     ElCarousel: typeof import('element-plus/es')['ElCarousel']
     ElCarouselItem: typeof import('element-plus/es')['ElCarouselItem']
     ElDialog: typeof import('element-plus/es')['ElDialog']
     ElIcon: typeof import('element-plus/es')['ElIcon']
     ElInput: typeof import('element-plus/es')['ElInput']
     ElPopover: typeof import('element-plus/es')['ElPopover']
-    ElTag: typeof import('element-plus/es')['ElTag']
+    ElSwitch: typeof import('element-plus/es')['ElSwitch']
     ElTooltip: typeof import('element-plus/es')['ElTooltip']
     LoginDialog: typeof import('./src/components/login-dialog/login-dialog.vue')['default']
     LogoSvg: typeof import('./src/components/logo-svg/logo-svg.vue')['default']
-    ParticleBg: typeof import('./src/components/particle-bg/particle-bg.vue')['default']
-    RippleFloatOnTheWater: typeof import('./src/components/RippleFloatOnTheWater/index.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    SvgIcon: typeof import('./src/components/svg-icon/svg-icon.vue')['default']
     UserInfoCard: typeof import('./src/components/user-info-card/user-info-card.vue')['default']
     UserItem: typeof import('./src/components/user-item/user-item.vue')['default']
-  }
-  export interface ComponentCustomProperties {
-    vLoading: typeof import('element-plus/es')['ElLoadingDirective']
-    vPopover: typeof import('element-plus/es')['ElPopoverDirective']
   }
 }

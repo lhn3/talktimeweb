@@ -138,16 +138,28 @@ export const friendList = [
       {
         id: 11,
         userName: '安妮',
+        sex: 0,
         avatar: 'https://picsum.photos/300/300?id=11',
         address: '浙江',
-        city: '杭州'
+        city: '杭州',
+        selfStyle:
+          '我就是我，不一样的烟火dsfhsdlikhgdkfuhbgkiudfhgkirehiuehviurbvuiwheriuvberkifhvbjuhsdihfgkisdngoieniogjrepofmjwepogmerpokjgreoingoire就是地方好客山东回风口iu我饿hi哦whoif华为哦哦i',
+        remake: '测试备注',
+        isTop: false,
+        isQuite: false,
+        from: '通过群聊添加'
       },
       {
         id: 12,
         userName: '安娜',
+        sex: 0,
         avatar: 'https://picsum.photos/300/300?id=12',
         address: '浙江',
-        city: '台州'
+        city: '台州',
+        selfStyle: '11111221213',
+        isTop: true,
+        isQuite: true,
+        from: '通过群聊添加'
       }
     ]
   },
@@ -157,6 +169,7 @@ export const friendList = [
       {
         id: 13,
         userName: 'Baby',
+        sex: 1,
         avatar: 'https://picsum.photos/300/300?id=13',
         address: '福建',
         city: '福州'

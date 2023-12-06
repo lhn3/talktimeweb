@@ -40,7 +40,9 @@
   import { Search } from '@element-plus/icons-vue'
   import UserItem from '@/components/user-item/user-item.vue'
   import { scrollToBottom } from '@/utils/utils'
+  import { useUserStore } from '@/stores'
 
+  const user = useUserStore()
   const emit = defineEmits(['changeChattingId', 'changeUserId'])
   const props = defineProps({
     // 分组
@@ -67,13 +69,17 @@
 
   /**选择某个人聊天*/
   const chattingIdClick = (id: number) => {
+    user.userInfo.isShowMoreInfo = false
     emit('changeChattingId', id)
     // 滚动到最底部
     nextTick(() => scrollToBottom())
   }
 
   /**选择某个用户*/
-  const userIdClick = (id: number) => emit('changeUserId', id)
+  const userIdClick = (id: number) => {
+    user.userInfo.isShowMoreInfo = false
+    emit('changeUserId', id)
+  }
 
   const searchValue = ref<any>()
 </script>

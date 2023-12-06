@@ -6,7 +6,7 @@ import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 import '@/assets/icons/iconfont.js'
 import SvgIcon from '@/components/svg-icon/svg-icon.vue'
-import { useUserStore } from '@/stores/userStore'
+import { useUserStore, keepStore } from '@/stores'
 
 import App from './App.vue'
 import router from './router'
@@ -16,13 +16,14 @@ app.use(createPinia())
 app.use(router)
 
 const user: any = useUserStore()
+keepStore(user)
 /**
  * 全局自定义指令
  * 按钮权限
  */
 app.directive('hasPermission', {
   mounted(el: any, binding: any) {
-    const permissions = user.permissions
+    const permissions = user.userInfo.permissions
     const { value } = binding
     if (value && value instanceof Array && value.length > 0) {
       const _isPermission = value.some(item => permissions.includes(item) || item == '')

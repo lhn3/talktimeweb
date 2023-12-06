@@ -4,7 +4,7 @@
     autofocus
     :class="$style['input-control']"
     contenteditable="true"
-    v-text="modelValue"
+    :text="modelValue"
     placeholder="来聊点什么吧~"
     @input="inputChange"
     @keyup.enter="submit"
