@@ -4,14 +4,14 @@
     autofocus
     :class="$style['input-control']"
     contenteditable="true"
-    :text="modelValue"
+    v-text="modelValue"
     placeholder="来聊点什么吧~"
     @input="inputChange"
     @keyup.enter="submit"
   ></div>
 </template>
 
-<script setup lang="ts">
+<script setup>
   import { ref, defineProps, defineEmits, onMounted } from 'vue'
   import { moveCursor } from '@/utils/utils'
   import { useOtherStore } from '@/stores'
@@ -37,7 +37,7 @@
   })
 
   /**输入内容改变*/
-  const inputChange = (e: any) => {
+  const inputChange = e => {
     emit('update:currentValue', e.data)
     emit('update:modelValue', e.target.innerText)
   }

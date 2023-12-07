@@ -26,4 +26,7 @@ declare module 'vue' {
     UserInfoCard: typeof import('./src/components/user-info-card/user-info-card.vue')['default']
     UserItem: typeof import('./src/components/user-item/user-item.vue')['default']
   }
+  export interface ComponentCustomProperties {
+    vLoading: typeof import('element-plus/es')['ElLoadingDirective']
+  }
 }

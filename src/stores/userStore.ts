@@ -22,14 +22,5 @@ export const useUserStore = defineStore('user', () => {
   /**展示隐藏更多列表*/
   const changeShowMore = () => (userInfo.isShowMoreInfo = !userInfo.isShowMoreInfo)
 
-  /**添加數據*/
-  const addMessage = (chattingId: number | undefined, value: any) => {
-    userInfo.messageBox.forEach((item: any): void => {
-      if (item.id === chattingId) {
-        item.messageList.push(value)
-      }
-    })
-  }
-
-  return { userInfo, changeShowMore, addMessage }
+  return { userInfo, changeShowMore }
 })

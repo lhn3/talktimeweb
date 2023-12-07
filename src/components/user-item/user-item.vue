@@ -2,13 +2,13 @@
   <div :class="$style['user-item']" :style="{ backgroundColor: checkId === id ? 'rgba(0,0,0,0.3)' : '' }">
     <el-avatar shape="circle" :size="50" fit="cover" :src="avatar" />
     <div class="user-info">
-      <div class="user-name text-nowrap">{{ userName }}</div>
+      <div class="user-name text-nowrap">{{ remake || userName }}</div>
       <div class="user-msg text-nowrap" v-if="msg">{{ msg }}</div>
     </div>
     <div class="send-time" v-if="time">{{ time }}</div>
   </div>
 </template>
-<script setup lang="ts">
+<script setup>
   import { defineProps } from 'vue'
 
   const props = defineProps({
@@ -26,6 +26,10 @@
       default: 'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png'
     },
     userName: {
+      type: String,
+      default: ''
+    },
+    remake: {
       type: String,
       default: ''
     },

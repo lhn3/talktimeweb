@@ -24,15 +24,23 @@
 
     <!--退出-->
     <div class="exit">
+      <svg-icon
+        v-if="getToken()"
+        @click="setting"
+        name="icon-shezhixitongshezhigongnengshezhishuxing"
+        color="#6d5b85"
+        size="24px"
+        svg-style="margin-bottom: 15px"
+      />
       <svg-icon v-if="getToken()" @click="exit" name="icon-tuichu" color="#6d5b85" size="22px" />
-      <svg-icon v-else name="icon-erweima" @click="loginDialogVisible = true" color="#6d5b85" size="22px" />
+      <svg-icon v-if="!getToken()" name="icon-erweima" @click="loginDialogVisible = true" color="#6d5b85" size="22px" />
     </div>
 
     <login-dialog v-model="loginDialogVisible" />
   </div>
 </template>
 
-<script setup lang="ts">
+<script setup>
   import { ref, defineProps, defineEmits } from 'vue'
   import SvgIcon from '@/components/svg-icon/svg-icon.vue'
   import { getToken } from '@/utils/utils'
@@ -80,8 +88,11 @@
       .catch(() => {})
   }
 
+  /**打开个人设置*/
+  const setting = () => {}
+
   /**点击不同分组*/
-  const tabClick = (id: number) => {
+  const tabClick = id => {
     user.userInfo.isShowMoreInfo = false
     emit('update:modelValue', id)
   }
@@ -127,6 +138,9 @@
       }
       .exit {
         margin: auto 0 20px 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
       }
     }
   }

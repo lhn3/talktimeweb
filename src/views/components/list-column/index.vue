@@ -12,6 +12,7 @@
         :id="item.id"
         :check-id="chattingId"
         :avatar="item.avatar"
+        :remake="item.remake"
         :user-name="item.userName"
         :msg="item.lastMessage"
         :time="item.lastMessageTime"
@@ -28,6 +29,7 @@
           :id="item.id"
           :check-id="userId"
           :avatar="item.avatar"
+          :remake="item.remake"
           :user-name="item.userName"
           @click="userIdClick(item.id)"
         />
@@ -35,11 +37,10 @@
     </div>
   </div>
 </template>
-<script setup lang="ts">
-  import { ref, defineProps, defineEmits, nextTick } from 'vue'
+<script setup>
+  import { ref, defineProps, defineEmits } from 'vue'
   import { Search } from '@element-plus/icons-vue'
   import UserItem from '@/components/user-item/user-item.vue'
-  import { scrollToBottom } from '@/utils/utils'
   import { useUserStore } from '@/stores'
 
   const user = useUserStore()
@@ -68,20 +69,18 @@
   })
 
   /**选择某个人聊天*/
-  const chattingIdClick = (id: number) => {
+  const chattingIdClick = id => {
     user.userInfo.isShowMoreInfo = false
     emit('changeChattingId', id)
-    // 滚动到最底部
-    nextTick(() => scrollToBottom())
   }
 
   /**选择某个用户*/
-  const userIdClick = (id: number) => {
+  const userIdClick = id => {
     user.userInfo.isShowMoreInfo = false
     emit('changeUserId', id)
   }
 
-  const searchValue = ref<any>()
+  const searchValue = ref()
 </script>
 <style module lang="scss">
   .list-column {

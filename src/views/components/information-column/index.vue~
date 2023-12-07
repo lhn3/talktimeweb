@@ -2,13 +2,16 @@
   <div
     :class="$style['information-column']"
     :style="{ width: user.userInfo.isShowMoreInfo ? '15vw' : 0, minWidth: user.userInfo.isShowMoreInfo ? '180px' : 0 }"
+    v-loading="state.loading"
   >
-    
+    <user-info-card :user-info="state.userInfo" :card-type="2" @refresh-user-info="refreshUserInfo" />
   </div>
 </template>
-<script setup lang="ts">
-  import { watch, defineProps, ref } from 'vue'
+<script setup>
+  import { watch, defineProps, reactive, ref } from 'vue'
   import { useUserStore } from '@/stores'
+  import UserInfoCard from '@/components/user-info-card/user-info-card.vue'
+  import { friendList } from '@/stores/test'
 
   const user = useUserStore()
   const props = defineProps({
@@ -19,26 +22,38 @@
     }
   })
 
-  const info = ref({})
+  const state = reactive({
+    loading: false,
+    userInfo: {}
+  })
 
   watch(
     () => user.userInfo.isShowMoreInfo,
     value => {
-      if (!value) return
-      info.value = {
-        avatar: ''
+      if (!value) {
+        state.userInfo = {}
+        return
       }
-      //清空数据，重新请求数据
+      //重新请求数据
+      state.loading = true
+      setTimeout(() => {
+        state.userInfo = friendList[0].list[0]
+        state.loading = false
+      }, 1000)
     }
   )
+
+  const refreshUserInfo = value => {
+    state.userInfo = value
+  }
 </script>
 <style module lang="scss">
   .information-column {
     height: 100%;
-    //width: 15vw;
-    //min-width: 180px;
     transition: all 0.5s;
-    background-color: #fff;
+    overflow-y: scroll;
+    overflow-x: scroll;
+    background-image: linear-gradient(to right, $chat-body-color, $primary-color2);
     :global {
     }
   }

@@ -1,7 +1,7 @@
 <template>
   <div :class="$style['chatting-column']">
     <!--聊天盒子-->
-    <div class="chatting-box" v-show="group === 0">
+    <div class="chatting-box" v-show="group === 0" v-loading="state.loading">
       <!--头部-->
       <div class="chatting-header" v-if="state.messageInfo.userName">
         <div class="chatting-title">{{ state.messageInfo.userName }}</div>
@@ -17,12 +17,14 @@
         v-show="chattingId === item.id"
         :key="item.id"
         :chatting-id="chattingId"
+        @push-message="value => state.messageInfo.messageList.push(value)"
       />
     </div>
 
     <!--用户信息-->
     <div class="user-info" v-show="group === 1">
       <user-info-card
+        :loading="state.loading"
         v-if="state.userInfo.id"
         :user-info="state.userInfo"
         :send="true"
@@ -33,7 +35,7 @@
   </div>
 </template>
 <script setup>
-  import { onMounted, ref, defineProps, computed, watch, reactive } from 'vue'
+  import { onMounted, ref, defineProps, watch, reactive, nextTick } from 'vue'
   import { useUserStore, useOtherStore } from '@/stores'
   import { scrollToBottom } from '@/utils/utils'
   import ControlBar from '@/views/components/chatting-column/cpns/control-bar/index.vue'
@@ -62,6 +64,7 @@
   })
 
   const state = reactive({
+    loading: false,
     messageInfo: {},
     userInfo: {}
   })
@@ -72,7 +75,13 @@
     value => {
       if (!value) return
       //发送请求
-      state.messageInfo = messageBox?.find(item => item.id === props.chattingId) || {}
+      state.loading = true
+      setTimeout(() => {
+        state.messageInfo = messageBox?.find(item => item.id === props.chattingId) || {}
+        // 滚动到最底部
+        nextTick(() => scrollToBottom())
+        state.loading = false
+      }, 1000)
     }
   )
 
@@ -90,7 +99,11 @@
           return true
         }
       })
-      state.userInfo = info
+      state.loading = true
+      setTimeout(() => {
+        state.userInfo = info
+        state.loading = false
+      }, 1000)
     }
   )
 

@@ -1,5 +1,4 @@
 import { useUserStore, useOtherStore } from '@/stores'
-import localCache from '@/utils/cache'
 
 const user: any = useUserStore()
 const other: any = useOtherStore()
@@ -157,8 +156,8 @@ export const moveCursor = (): void => {
   //ie11 10 9 ff safari
   if (window.getSelection) {
     const range = window.getSelection() //创建range
-    range?.selectAllChildren(dom) //range 选择dom下所有子内容
-    range?.collapseToEnd() //光标移至最后
+    // range?.selectAllChildren(dom) //range 选择dom下所有子内容
+    // range?.collapseToEnd() //光标移至最后
   }
 }
 

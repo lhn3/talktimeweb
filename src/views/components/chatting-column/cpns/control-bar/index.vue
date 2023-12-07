@@ -50,7 +50,7 @@
   </div>
 </template>
 <script setup>
-  import { nextTick, reactive, defineProps, watch, ref } from 'vue'
+  import { nextTick, reactive, defineProps, defineEmits, ref } from 'vue'
   import InputControl from '@/views/components/chatting-column/cpns/control-bar/cpns/input-control.vue'
   import SpeakControl from '@/views/components/chatting-column/cpns/control-bar/cpns/speak-control.vue'
   import EmojiControl from '@/views/components/chatting-column/cpns/control-bar/cpns/emoji-control.vue'
@@ -59,6 +59,7 @@
   import { scrollToBottom, getCursorCoordinates, moveCursor } from '@/utils/utils'
   // import AtDialog from '@/views/components/chatting-column/cpns/control-bar/cpns/at-dialog.vue'
 
+  const emit = defineEmits(['pushMessage'])
   const user = useUserStore()
   const inputControlRef = ref()
   const props = defineProps({
@@ -206,16 +207,16 @@
     let result = await showTip()
     if (!result) return
     // 发送并清空输入框内容
-    // user.addMessage(props.chattingId, {
-    //   id: 8,
-    //   self: true,
-    //   avatar: 'https://picsum.photos/300/300?id=4',
-    //   userName: '西兰花',
-    //   address: '浙江',
-    //   city: '杭州',
-    //   time: '11:48',
-    //   message: state.inputValue
-    // })
+    emit('pushMessage', {
+      id: 8,
+      self: true,
+      avatar: 'https://picsum.photos/300/300?id=4',
+      userName: '西兰花',
+      address: '浙江',
+      city: '杭州',
+      time: '11:48',
+      message: state.inputValue
+    })
     state.inputValue = ''
     nextTick(() => {
       // 滚动到最底部

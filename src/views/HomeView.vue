@@ -4,7 +4,7 @@
     <bridge-bg />
 
     <!--聊天窗口-->
-    <div class="home-container">
+    <div :class="{ 'home-container': true, 'un-login-mask': !getToken() }">
       <!--左侧头像信息分组一列-->
       <group-settings-column v-model="state.group" />
 
@@ -23,10 +23,15 @@
 
       <!--群聊或个人信息（可隐藏）-->
       <information-column :chatting-id="state.chattingId" />
+
+      <div class="un-login-tip" v-if="!getToken()">
+        <svg-icon name="icon-suo" size="40px" svg-style="margin-right: 20px" />
+        <text>点击头像登录后解锁更多功能 ~</text>
+      </div>
     </div>
   </div>
 </template>
-<script setup lang="ts">
+<script setup>
   import BridgeBg from '@/components/bridge-bg/index.vue'
   import GroupSettingsColumn from '@/views/components/group-settings-column/index.vue'
   import ListColumn from '@/views/components/list-column/index.vue'
@@ -36,6 +41,7 @@
   import { computed, onMounted, reactive } from 'vue'
   import { getToken } from '@/utils/utils'
   import { messageBox, friendList } from '@/stores/test'
+  import SvgIcon from '@/components/svg-icon/svg-icon.vue'
 
   const user = useUserStore()
   const state = reactive({
@@ -83,7 +89,6 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    position: relative;
     overflow: hidden;
     :global {
       .home-container {
@@ -93,8 +98,26 @@
         height: 85vh;
         min-height: 500px;
         border-radius: 16px;
-        overflow: hidden;
         display: flex;
+        overflow: hidden;
+      }
+      .un-login-mask {
+        position: relative;
+        opacity: 1;
+        .un-login-tip {
+          position: absolute;
+          height: 100%;
+          width: calc(100% - 70px);
+          right: 0;
+          top: 0;
+          background-color: rgba(255, 255, 255, 0.3);
+          backdrop-filter: blur(10px);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: #fff;
+          user-select: none;
+        }
       }
     }
   }

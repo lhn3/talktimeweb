@@ -2,7 +2,7 @@
   <div :class="$style['chatting-body']">
     <div class="message-item" v-for="item in messageList" :key="item.id">
       <!--头像-->
-      <avatar-popover :user-info="item" v-if="!item.self" />
+      <avatar-popover :avatar="item.avatar" :user-id="item.userId" :user-info="item" v-if="!item.self" />
       <!--内容-->
       <div class="message-container" :style="{ alignItems: item.self ? 'flex-end' : 'flex-start' }">
         <div class="user-info">
@@ -22,12 +22,12 @@
         </div>
       </div>
       <!--头像-->
-      <avatar-popover :user-info="item" v-if="item.self" />
+      <avatar-popover :avatar="item.avatar" :user-id="item.userId" :user-info="item" v-if="item.self" />
     </div>
   </div>
 </template>
-<script setup lang="ts">
-  import { defineProps } from 'vue/dist/vue'
+<script setup>
+  import { defineProps } from 'vue'
   import AvatarPopover from './cpns/avatar-popover.vue'
 
   const props = defineProps({

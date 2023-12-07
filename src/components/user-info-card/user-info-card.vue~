@@ -80,7 +80,7 @@
 </template>
 <script setup>
   import { defineProps, defineEmits, ref, watch } from 'vue'
-  import { ElMessageBox } from 'element-plus'
+  import {ElMessageBox} from "element-plus";
 
   const emit = defineEmits(['refreshUserInfo'])
   const props = defineProps({
@@ -140,10 +140,10 @@
       cancelButtonText: '取消',
       type: 'warning'
     })
-      .then(() => {
+        .then(() => {
         //清空记录
-      })
-      .catch(() => {})
+        })
+        .catch(() => {})
   }
 </script>
 
