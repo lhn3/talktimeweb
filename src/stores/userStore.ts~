@@ -8,8 +8,6 @@ export const useUserStore = defineStore('user', () => {
     username: '',
     permissions: [],
     token: '',
-    selfStyle: '',
-    sex: 0,
 
     // 是否展示更多数据列
     isShowMoreInfo: false,

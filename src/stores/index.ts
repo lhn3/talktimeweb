@@ -5,7 +5,7 @@ export { useOtherStore } from './otherStore'
 /**
  * 数据持久化
  */
-export const keepStore = userStore => {
+export const keepStore = (userStore: any) => {
   const userInfo = localCache.getCache('talkTime-userInfo')
   if (!userInfo) return
   userStore.userInfo.id = userInfo.id
@@ -13,6 +13,8 @@ export const keepStore = userStore => {
   userStore.userInfo.username = userInfo.username
   userStore.userInfo.permissions = userInfo.permissions
   userStore.userInfo.token = userInfo.token
+  userStore.userInfo.selfStyle = userInfo.selfStyle
+  userStore.userInfo.sex = userInfo.sex
 
   // userStore.userInfo.isShowMoreInfo = userInfo.isShowMoreInfo
   // userStore.userInfo.group = userInfo.group

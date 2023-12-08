@@ -37,6 +37,7 @@
     </div>
 
     <login-dialog v-model="loginDialogVisible" />
+    <self-info-dialog v-model="selfInfoDialogVisible" />
   </div>
 </template>
 
@@ -45,12 +46,14 @@
   import SvgIcon from '@/components/svg-icon/svg-icon.vue'
   import { getToken } from '@/utils/utils'
   import LoginDialog from '@/components/login-dialog/login-dialog.vue'
+  import SelfInfoDialog from '@/components/self-info-dialog/self-info-dialog.vue'
   import { ElMessageBox } from 'element-plus'
   import localCache from '@/utils/cache'
   import { useUserStore } from '@/stores'
 
   const user = useUserStore()
   const loginDialogVisible = ref(false) //登录弹窗
+  const selfInfoDialogVisible = ref(false) //个人信息弹窗
   const emit = defineEmits(['update:modelValue'])
   const props = defineProps({
     modelValue: {
@@ -67,7 +70,7 @@
   /**头像点击*/
   const avatarClick = () => {
     if (getToken()) {
-      return
+      selfInfoDialogVisible.value = true
     } else {
       loginDialogVisible.value = true
     }
