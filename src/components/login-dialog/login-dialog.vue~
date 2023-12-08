@@ -1,5 +1,7 @@
 <template>
   <el-dialog
+    align-center
+    
     :class="$style['login-dialog']"
     :close-on-click-modal="false"
     :model-value="modelValue"
@@ -126,6 +128,7 @@
     user.userInfo.username = '西兰花🥦'
     user.userInfo.avatar = avatar
     user.userInfo.selfStyle = '个性签名你别管！'
+    user.userInfo.sex = 1
     user.userInfo.permissions = []
     user.userInfo.token = getUuid()
     localCache.setCache('talkTime-userInfo', user.userInfo)

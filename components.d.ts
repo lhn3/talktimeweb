@@ -7,9 +7,8 @@ export {}
 
 declare module 'vue' {
   export interface GlobalComponents {
-    BirdButton: typeof import('./src/components/bird-button/bird-button.vue')['default']
-    BridgeBg: typeof import('./src/components/bridge-bg/index.vue')['default']
     ElAvatar: typeof import('element-plus/es')['ElAvatar']
+    ElButton: typeof import('element-plus/es')['ElButton']
     ElCarousel: typeof import('element-plus/es')['ElCarousel']
     ElCarouselItem: typeof import('element-plus/es')['ElCarouselItem']
     ElDialog: typeof import('element-plus/es')['ElDialog']
@@ -19,14 +18,12 @@ declare module 'vue' {
     ElPopover: typeof import('element-plus/es')['ElPopover']
     ElSwitch: typeof import('element-plus/es')['ElSwitch']
     ElTooltip: typeof import('element-plus/es')['ElTooltip']
-    LoginDialog: typeof import('./src/components/login-dialog/login-dialog.vue')['default']
-    LogoSvg: typeof import('./src/components/logo-svg/logo-svg.vue')['default']
+    HorseRaceLamp: typeof import('./src/components/no-pass/horse-race-lamp.vue')['default']
+    NoPass: typeof import('./src/components/no-pass/no-pass.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
-    SelfInfoDialog: typeof import('./src/components/self-info-dialog/self-info-dialog.vue')['default']
-    SvgIcon: typeof import('./src/components/svg-icon/svg-icon.vue')['default']
-    UserInfoCard: typeof import('./src/components/user-info-card/user-info-card.vue')['default']
-    UserItem: typeof import('./src/components/user-item/user-item.vue')['default']
+    SelfSwitch: typeof import('./src/components/self-switch/self-switch.vue')['default']
+    StarBg: typeof import('./src/components/star-bg/star-bg.vue')['default']
   }
   export interface ComponentCustomProperties {
     vLoading: typeof import('element-plus/es')['ElLoadingDirective']

@@ -3,10 +3,10 @@
     <!--背景开关-->
     <self-switch class="self-switch" v-model="state.theme" :openIcon="true" :closeIcon="true">
       <template #openIcon>
-        <img :src="sun" :width="26" :height="26" />
+        <img :src="sun" alt="" :width="26" :height="26" />
       </template>
       <template #closeIcon>
-        <img :src="moon" :width="26" :height="26" />
+        <img :src="moon" alt="" :width="26" :height="26" />
       </template>
     </self-switch>
 

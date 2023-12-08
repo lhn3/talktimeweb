@@ -152,7 +152,7 @@ export const throttle = (fn: Function, time: number, first: boolean = true, last
 export const moveCursor = (): void => {
   const dom: any = other.otherInfo.inputDom
   dom.click()
-  // dom.focus()
+  dom.focus()
   //ie11 10 9 ff safari
   if (window.getSelection) {
     const range = window.getSelection() //创建range
@@ -193,5 +193,15 @@ export const getCursorCoordinates = () => {
     }
   }
   return {}
+}
+
+/**获取文件base64格式信息*/
+export const getBase64 = file => {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader()
+    reader.readAsDataURL(file)
+    reader.onload = res => resolve(res.target.result)
+    reader.onerror = error => reject(error)
+  })
 }
 export { deepClone } from '@/utils/deepClone'

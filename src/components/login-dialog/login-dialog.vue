@@ -1,5 +1,6 @@
 <template>
   <el-dialog
+    align-center
     :class="$style['login-dialog']"
     :close-on-click-modal="false"
     :model-value="modelValue"

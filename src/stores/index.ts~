@@ -15,4 +15,9 @@ export const keepStore = (userStore: any) => {
   userStore.userInfo.token = userInfo.token
   userStore.userInfo.selfStyle = userInfo.selfStyle
   userStore.userInfo.sex = userInfo.sex
+
+  // userStore.userInfo.isShowMoreInfo = userInfo.isShowMoreInfo
+  // userStore.userInfo.group = userInfo.group
+  // userStore.userInfo.chattingId = userInfo.chattingId
+  // userStore.userInfo.userId = userInfo.userId
 }

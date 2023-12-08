@@ -1,6 +1,7 @@
 <template>
   <el-dialog
     append-to-body
+    align-center
     :class="$style['self-info-dialog']"
     :close-on-click-modal="false"
     :model-value="modelValue"
@@ -12,14 +13,14 @@
       <!--性别-->
       <div class="self-sex" @click="sexChange">
         <svg-icon
-          v-if="user.userInfo.sex === 0"
+          v-if="state.userInfo.sex === 0"
           size="20"
           name="icon-nv"
           color="#f56c6c"
           svg-style="margin-left: 5px"
         />
         <svg-icon
-          v-if="user.userInfo.sex === 1"
+          v-if="state.userInfo.sex === 1"
           size="20"
           name="icon-nan"
           color="#42a3f6"
@@ -29,18 +30,12 @@
       <!--头像-->
       <div class="self-avatar" @click="avatarUpload.click()">
         <input id="avatarUpload" type="file" ref="avatarUpload" v-show="false" />
-        <el-image style="width: 100px; height: 100px" :src="user.userInfo.avatar" :initial-index="4" fit="cover" />
+        <el-image style="width: 100px; height: 100px" :src="state.userInfo.avatar" :initial-index="4" fit="cover" />
         <div class="edit-avatar">更换头像</div>
       </div>
       <!--用户名-->
       <div class="self-username">
-        <el-input
-          style="width: 200px"
-          :maxlength="15"
-          placeholder="输入昵称"
-          v-model="user.userInfo.username"
-          @blur="handelChange('userName')"
-        />
+        <el-input style="width: 200px" :maxlength="15" placeholder="输入昵称" v-model="state.userInfo.username" />
       </div>
       <!--个性签名-->
       <div class="self-selfStyle">
@@ -51,17 +46,23 @@
           :maxlength="100"
           :rows="3"
           placeholder="展示自己的个性~"
-          v-model="user.userInfo.selfStyle"
-          @blur="handelChange('selfStyle')"
+          v-model="state.userInfo.selfStyle"
         />
       </div>
+    </div>
+
+    <div class="self-btn">
+      <el-button @click="reset">取消</el-button>
+      <el-button type="primary" @click="updateUserInfo">保存</el-button>
     </div>
   </el-dialog>
 </template>
 <script setup>
-  import { defineProps, defineEmits, ref, watch, nextTick } from 'vue'
+  import { defineProps, defineEmits, ref, watch, nextTick, reactive } from 'vue'
   import { useUserStore } from '@/stores'
-  import { getToken } from '@/utils/utils'
+  import { getBase64 } from '@/utils/utils'
+  import localCache from '@/utils/cache'
+  import { ElMessage } from 'element-plus'
 
   const avatarUpload = ref()
   const user = useUserStore()
@@ -72,35 +73,35 @@
       default: false
     }
   })
+  const state = reactive({
+    loading: false,
+    userInfo: {}
+  })
+  let imageFormats = /\.(jpg|jpeg|png|gif)$/i
 
   /**改变头像*/
   watch(
     () => props.modelValue,
-    () => {
+    value => {
+      if (!value) return
+      state.userInfo = { ...user.userInfo }
       nextTick(() => {
-        avatarUpload.value.addEventListener('change', e => {
+        avatarUpload.value.addEventListener('change', async e => {
           let file = e.target.files[0]
-          if (!file) return
-          const reader = new FileReader()
-          reader.readAsDataURL(file)
-          reader.onload = res => {
-            user.userInfo.avatar = res.target.result
-          }
+          if (!imageFormats.test(file.name)) return ElMessage.error('图片格式不正确！')
+          let res = await getBase64(file)
+          state.userInfo.avatar = res || ''
         })
       })
     }
   )
 
-  /**改变昵称*/
-  const handelChange = type => {}
-
   /**改变性别*/
   const sexChange = () => {
-    console.log(user.userInfo.sex)
-    if (user.userInfo.sex) {
-      user.userInfo.sex = 0
+    if (state.userInfo.sex) {
+      state.userInfo.sex = 0
     } else {
-      user.userInfo.sex = 1
+      state.userInfo.sex = 1
     }
   }
 
@@ -108,15 +109,26 @@
   const reset = () => {
     emit('update:modelValue', false)
   }
+
+  /**保存用户信息*/
+  const updateUserInfo = () => {
+    //发送请求保存用户信息
+    for (let key in state.userInfo) {
+      user.userInfo[key] = state.userInfo[key]
+    }
+    localCache.setCache('talkTime-userInfo', state.userInfo)
+    reset()
+  }
 </script>
 
 <style module lang="scss">
   .self-info-dialog {
     height: 500px;
-    border-radius: 20px;
+    border-radius: 10px;
     overflow: hidden;
     box-shadow: 0 3px 10px 5px rgba(0, 0, 0, 0.3);
     background-image: $black-bg;
+    position: relative;
     :global {
       .self-info {
         user-select: none;
@@ -160,7 +172,6 @@
           }
         }
         .self-username {
-          //width: 100%;
           margin: 10px 0;
           .el-input__wrapper {
             background-color: transparent;
@@ -197,6 +208,12 @@
             min-width: 60px;
           }
         }
+      }
+      .self-btn {
+        position: absolute;
+        z-index: 999;
+        right: 10px;
+        bottom: 10px;
       }
     }
   }
