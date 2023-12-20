@@ -1,3 +1,4 @@
+<!--好友详情卡片-->
 <template>
   <div :class="$style['user-info-card']">
     <div
@@ -80,7 +81,7 @@
 </template>
 <script setup>
   import { defineProps, defineEmits, ref, watch } from 'vue'
-  import {ElMessageBox} from "element-plus";
+  import { ElMessageBox } from 'element-plus'
 
   const emit = defineEmits(['refreshUserInfo'])
   const props = defineProps({
@@ -140,10 +141,10 @@
       cancelButtonText: '取消',
       type: 'warning'
     })
-        .then(() => {
+      .then(() => {
         //清空记录
-        })
-        .catch(() => {})
+      })
+      .catch(() => {})
   }
 </script>
 
@@ -155,9 +156,9 @@
       .card-style {
         border-left: 1px solid rgba(255, 255, 255, 0.4);
         border-bottom: 1px solid rgba(255, 255, 255, 0.4);
-        background-image: linear-gradient(to top right, rgba($primary-color3, 0.5), rgba($primary-color, 0.5));
+        background-image: linear-gradient(to top right, rgba(var(--bg-3), 0.5), rgba(var(--bg-1), 0.5));
         backdrop-filter: blur(6px);
-        box-shadow: -10px 10px 10px rgba(0, 0, 0, 0.2);
+        box-shadow: -2px 2px 15px 10px rgba(0, 0, 0, 0.2);
         border-radius: 20px;
         overflow: hidden;
         padding: 15px 10px;

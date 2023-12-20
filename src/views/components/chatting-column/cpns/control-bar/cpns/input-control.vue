@@ -80,11 +80,11 @@
   }
   .input-control:focus-visible {
     outline: none;
-    border-color: $chat-body-color;
+    border-color: var(--bg-4);
   }
   .input-control:empty:before {
     content: attr(placeholder);
-    color: #bbb;
+    color: var(--text-2);
   }
   .input-control:focus:before {
     content: none;

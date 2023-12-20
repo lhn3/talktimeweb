@@ -1,3 +1,4 @@
+<!--好友详情卡片-->
 <template>
   <div :class="$style['user-info-card']">
     <div
@@ -155,9 +156,9 @@
       .card-style {
         border-left: 1px solid rgba(255, 255, 255, 0.4);
         border-bottom: 1px solid rgba(255, 255, 255, 0.4);
-        background-image: linear-gradient(to top right, rgba($primary-color3, 0.5), rgba($primary-color, 0.5));
+        background-image: linear-gradient(to top right, rgba(var(--bg-3), 0.5), rgba(var(--bg-1), 0.5));
         backdrop-filter: blur(6px);
-        box-shadow: -10px 10px 10px rgba(0, 0, 0, 0.2);
+        box-shadow: -2px 2px 15px 10px rgba(0, 0, 0, 0.2);
         border-radius: 20px;
         overflow: hidden;
         padding: 15px 10px;
@@ -183,12 +184,12 @@
             line-height: 22px;
             font-size: 15px;
             margin-bottom: 10px;
-            color: #fff;
+            color: var(--text-1);
             display: flex;
             align-items: center;
           }
           .info-other {
-            color: #999999;
+            color: var(--text-2);
             font-size: 12px;
             margin: 5px 0;
           }
@@ -203,9 +204,9 @@
           align-items: center;
           min-height: 35px;
           font-size: 14px;
-          color: #fff;
+          color: var(--text-1);
           text {
-            color: #aaa;
+            color: var(--text-2);
             min-width: 100px;
           }
           div {
@@ -216,7 +217,7 @@
             background-color: transparent;
             box-shadow: none;
             .el-input__inner {
-              color: #fff;
+              color: var(--text-1);
               text-align: right;
             }
           }
@@ -253,7 +254,7 @@
           align-items: center;
           justify-content: space-between;
           text {
-            color: #fff;
+            color: var(--text-1);
             line-height: 28px;
           }
         }

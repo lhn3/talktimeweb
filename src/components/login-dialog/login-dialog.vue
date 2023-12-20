@@ -1,3 +1,4 @@
+<!--登录弹窗-->
 <template>
   <el-dialog
     align-center
@@ -38,7 +39,7 @@
               <div class="input-item">
                 <svg-icon
                   name="icon-shouji"
-                  color="#aaa"
+                  color="var(--text-2)"
                   size="30px"
                   svg-style="padding: 0 10px;border-right: 1px solid #aaaaaa"
                 />
@@ -48,7 +49,7 @@
                 <svg-icon
                   name="icon-duanxin"
                   size="30px"
-                  color="#aaa"
+                  color="var(--text-2)"
                   svg-style="padding: 0 13.5px;border-right: 1px solid #aaaaaa"
                 />
                 <el-input v-model="state.code" placeholder="请输入验证码" clearable maxlength="4" />
@@ -77,9 +78,10 @@
   import { isType, getUuid } from '@/utils/utils'
   import avatar from '@/assets/img/avatar.jpg'
   import localCache from '@/utils/cache'
-  import { useUserStore } from '@/stores'
+  import { useOtherStore, useUserStore } from '@/stores'
 
   const user = useUserStore()
+  const other = useOtherStore()
   const carouselRef = ref()
   const emit = defineEmits(['update:modelValue'])
   const props = defineProps({
@@ -131,7 +133,7 @@
     user.userInfo.permissions = []
     user.userInfo.token = getUuid()
     localCache.setCache('talkTime-userInfo', user.userInfo)
-    window.location.reload()
+    other.otherInfo.rootKey = new Date().getTime()
   }
 
   /**重置信息*/
@@ -147,7 +149,7 @@
     border-radius: 20px;
     overflow: hidden;
     box-shadow: 0 3px 10px 5px rgba(0, 0, 0, 0.3);
-    background-image: $black-bg;
+    background: var(--card-bg);
     :global {
       .login-main {
         width: 100%;
@@ -161,7 +163,7 @@
           height: 80px;
           width: 100%;
           text-align: center;
-          color: #aaaaaa;
+          color: var(--text-2);
           .login-tip {
             margin-top: 10px;
           }
@@ -194,7 +196,7 @@
                 background-color: transparent;
                 box-shadow: none;
                 .el-input__inner {
-                  color: #aaaaaa;
+                  color: var(--text-2);
                 }
               }
               .el-input__wrapper:focus-visible {
@@ -222,10 +224,10 @@
           user-select: none;
           cursor: pointer;
           margin-bottom: 10px;
-          color: #aaaaaa;
+          color: var(--text-2);
         }
         .type-btn:hover {
-          color: #e6a23c;
+          color: var(--primary-2);
         }
       }
     }

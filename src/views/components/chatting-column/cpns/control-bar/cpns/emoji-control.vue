@@ -4,9 +4,9 @@
       width: 400px;
       height: 280px;
       padding: 10px 0 0 0;
-      background-color:#35244e;
+      background-color:var(--bg-1);
       border:none;
-      box-shadow: 0 0 10px 3px #35244e;"
+      box-shadow: 0 0 10px 3px var(--bg-1);"
     placement="top"
     :show-arrow="false"
     trigger="click"
@@ -33,7 +33,7 @@
           v-for="item in typeList"
           :key="item.icon"
         >
-          <svg-icon :name="item.icon" :size="item.size" />
+          <svg-icon :name="item.icon" color="var(--text-1)" :size="item.size" />
         </div>
       </div>
     </div>
@@ -46,8 +46,8 @@
   const emit = defineEmits(['selectEmoji'])
   const activeType = ref(1)
   const typeList = [
-    { id: 1, icon: 'icon-biaoqing', size: '20px' },
-    { id: 2, icon: 'icon-aixin', size: '20px' }
+    { id: 1, icon: 'icon-a-1', size: '20px' },
+    { id: 2, icon: 'icon-kongaixin', size: '20px' }
   ]
   const selectItem = (value: string) => emit('selectEmoji', value)
 </script>
@@ -78,7 +78,7 @@
           cursor: pointer;
         }
         .emoji:hover {
-          background-color: $primary-color3;
+          background-color: var(--bg-3);
         }
       }
       .emoji-type {
@@ -86,7 +86,7 @@
         bottom: 0;
         height: 40px;
         width: 100%;
-        border-top: 1px solid $primary-color3;
+        border-top: 1px solid var(--bg-3);
         display: flex;
         padding: 5px 10px;
         .type-item {
@@ -101,7 +101,7 @@
           transition: all 0.3s;
         }
         .type-active {
-          background-color: $primary-color3;
+          background-color: var(--bg-3);
         }
       }
     }

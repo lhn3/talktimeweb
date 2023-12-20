@@ -1,3 +1,45 @@
+/*默认暗色*/
+:root {
+  --primary-1:#FF6600;
+  --primary-2:#ff983f;
+  --primary-3:#ffffa1;
+
+  --text-1:#FFFFFF;
+  --text-2:#aaaaaa;
+
+  --bg-1:#1D1F21;
+  --bg-2:#2c2e30;
+  --bg-3:#444648;
+  --bg-4:#393c3f; //聊天背景色
+  --bg-5:#585c5f; //聊天输入框颜色
+  --bg-6:#6b6f72; //聊天头部颜色
+
+  --card-bg: repeating-linear-gradient(107deg, hsla(0, 0%, 5%, 0.15), hsla(0, 0%, 5%, 0.15) 0, transparent 0, transparent 1px, hsla(0, 0%, 5%, 0.15) 0, hsla(0, 0%, 5%, 0.15) 3px, transparent 0, transparent 4px, hsla(0, 0%, 5%, 0.15) 0, hsla(0, 0%, 5%, 0.15) 7px),
+  repeating-linear-gradient(191deg, hsla(0, 0%, 5%, 0.15), hsla(0, 0%, 5%, 0.15) 0, transparent 0, transparent 1px, hsla(0, 0%, 5%, 0.15) 0, hsla(0, 0%, 5%, 0.15) 3px, transparent 0, transparent 4px, hsla(0, 0%, 5%, 0.15) 0, hsla(0, 0%, 5%, 0.15) 7px),
+  repeating-linear-gradient(0deg, hsla(0, 0%, 5%, 0.15), hsla(0, 0%, 5%, 0.15) 0, transparent 0, transparent 1px, hsla(0, 0%, 5%, 0.15) 0, hsla(0, 0%, 5%, 0.15) 3px, transparent 0, transparent 4px, hsla(0, 0%, 5%, 0.15) 0, hsla(0, 0%, 5%, 0.15) 7px),
+  repeating-linear-gradient(90deg, hsla(0, 0%, 5%, 0.15), hsla(0, 0%, 5%, 0.15) 0, transparent 0, transparent 1px, hsla(0, 0%, 5%, 0.15) 0, hsla(0, 0%, 5%, 0.15) 3px, transparent 0, transparent 4px, hsla(0, 0%, 5%, 0.15) 0, hsla(0, 0%, 5%, 0.15) 7px),
+  linear-gradient(90deg, #2d2d2d, #2d2d2d);
+}
+
+html[data-them='light'] {
+  --primary-1: #f3062f;
+  --primary-2: #f3405e;
+  --primary-3: #c36978;
+
+  --text-1: #1a1a1a;
+  --text-2:#4A4A4A;
+
+  --bg-1: #c8c7c6;
+  --bg-2: #e9e7e6;
+  --bg-3: #f5f5f5;
+  --bg-4: #ffffff;
+  --bg-5: #d3d2d2;
+  --bg-6: #dfdfde;
+
+  --card-bg: radial-gradient(circle at 60% 90%, var(--bg-1), transparent 60%),
+  radial-gradient(circle at 20px 20px, var(--bg-1), transparent 25%), var(--bg-4);
+}
+
 body {
   padding: 0;
   margin: 0;
@@ -62,7 +104,7 @@ div{
 
 //全局loading
 .el-loading-mask{
-  background-color: rgba($primary-color2, 0.8)!important;
+  background-color: rgba(var(--bg-2), 0.8)!important;
   backdrop-filter: blur(6px);
 }
 

@@ -6,7 +6,9 @@ export const useOtherStore = defineStore('other', () => {
     // 消息盒子
     chattingBodyDom: null,
     // 聊天输入框
-    inputDom: null
+    inputDom: null,
+    // key值改变组件重载
+    rootKey: new Date().getTime()
   })
 
   return { otherInfo }

@@ -28,16 +28,16 @@
         v-if="getToken()"
         @click="setting"
         name="icon-shezhixitongshezhigongnengshezhishuxing"
-        color="var(--primary-2)"
+        color="var(--primary-1)"
         size="24px"
         svg-style="margin-bottom: 15px"
       />
-      <svg-icon v-if="getToken()" @click="exit" name="icon-tuichu" color="var(--primary-2)" size="22px" />
+      <svg-icon v-if="getToken()" @click="exit" name="icon-tuichu" color="var(--primary-1)" size="22px" />
       <svg-icon
         v-if="!getToken()"
         name="icon-erweima"
         @click="loginDialogVisible = true"
-        color="var(--primary-2)"
+        color="var(--primary-1)"
         size="22px"
       />
     </div>

@@ -1,3 +1,4 @@
+<!--禁止通行滚动横幅-->
 <template>
   <div class="container" ref="containerRef">
     <template v-if="!!containerRef">

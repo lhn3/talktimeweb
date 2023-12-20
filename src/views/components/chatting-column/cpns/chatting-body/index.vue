@@ -15,7 +15,8 @@
           class="user-message"
           :style="{
             borderRadius: item.self ? '20px 0 20px 20px' : '0 20px 20px 20px',
-            backgroundColor: item.self ? '#1d90f5' : '#6d5b85'
+            backgroundColor: item.self ? '#1d90f5' : 'var(--bg-3)',
+            color: item.self ? '#fff' : 'var(--text-1)'
           }"
         >
           {{ item.message }}
@@ -59,7 +60,7 @@
             user-select: none;
             font-size: 13px;
             margin-bottom: 10px;
-            color: #999999;
+            color: var(--text-2);
             .user-name {
               transition: all 0.3s;
               cursor: pointer;
@@ -84,7 +85,7 @@
             //transition: all 0.3s;
           }
           .user-message:hover {
-            background-color: rgba($primary-color, 0.6);
+            background-color: rgba(var(--bg-1), 0.6);
           }
         }
       }

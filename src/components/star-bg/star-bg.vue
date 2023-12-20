@@ -1,3 +1,4 @@
+<!--星空背景-->
 <template>
   <div class="star-bg" id="particles-js"></div>
 </template>

@@ -9,7 +9,7 @@
     <div v-if="atAll" class="at-all">
       <div class="at-user" @click="handelClick({ id: 0, userName: '全体成员' })">
         <div class="at-avatar">
-          <svg-icon name="icon-nav_client" size="20px" color="var(--text-1)" />
+          <svg-icon name="icon-nav_client" size="20px" color="#fff" />
         </div>
         <div class="at-userName">全体成员</div>
       </div>

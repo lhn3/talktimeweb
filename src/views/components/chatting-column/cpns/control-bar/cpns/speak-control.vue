@@ -30,9 +30,9 @@
   .speak-control:active {
     :global {
       .speak-item {
-        color: #e6a23c;
+        color: var(--primary-1);
         transform: scaleX(0.97);
-        box-shadow: 0 0 10px 3px $primary-color2;
+        box-shadow: 0 0 10px 3px var(--bg-2);
       }
     }
   }

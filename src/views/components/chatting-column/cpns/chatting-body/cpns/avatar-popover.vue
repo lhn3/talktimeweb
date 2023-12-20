@@ -52,11 +52,11 @@
   :global(.avatar-popover) {
     width: 240px !important;
     padding: 0 !important;
-    background-color: rgba(0, 0, 0, 0.5) !important;
+    //background-color: rgba(0, 0, 0, 0.5) !important;
+    background-color: var(--bg-3) !important;
     backdrop-filter: blur(8px) !important;
     border: none !important;
     border-radius: 15px !important;
-    //overflow: hidden !important;
     box-shadow: -5px 5px 10px 0px rgba(0, 0, 0, 0.5) !important;
   }
 </style>

@@ -1,8 +1,15 @@
 <template>
-  <keep-alive>
-    <router-view />
-  </keep-alive>
+  <router-view #default="{ Component }">
+    <keep-alive>
+      <component :is="Component" :key="other.otherInfo.rootKey" />
+    </keep-alive>
+  </router-view>
 </template>
-<script setup lang="ts"></script>
+<script setup lang="ts">
+  import { useOtherStore } from '@/stores'
+
+  // key值改变dom重新渲染
+  const other = useOtherStore()
+</script>
 
 <style scoped></style>

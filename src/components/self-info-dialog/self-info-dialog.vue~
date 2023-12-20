@@ -215,7 +215,8 @@
           display: flex;
           align-items: center;
           .el-textarea__inner {
-            background-color: rgba(255, 255, 255, 0.1);
+            $b: var(--text-1);
+            background-color: rgba($b, 0.1);
             color: var(--text-1);
             box-shadow: none;
             word-wrap: break-word;

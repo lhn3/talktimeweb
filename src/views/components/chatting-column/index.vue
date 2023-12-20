@@ -125,16 +125,16 @@
     height: 100%;
     width: 50vw;
     min-width: 540px;
-    color: #fff;
-    //background-color: $chat-body-color;
-    background: radial-gradient(circle at 60% 90%, rgba($primary-color, 1), transparent 60%),
-      radial-gradient(circle at 20px 20px, rgba($primary-color, 0.8), transparent 25%), $chat-body-color;
+    color: var(--text-1);
+    //background-color: var(--bg-4);
+    background: radial-gradient(circle at 60% 90%, var(--bg-1), transparent 60%),
+      radial-gradient(circle at 20px 20px, var(--bg-1), transparent 25%), var(--bg-4);
     display: flex;
     align-items: center;
     justify-content: center;
     :global {
       .chatting-box {
-        background-color: $chat-body-color;
+        background-color: var(--bg-4);
         height: 100%;
         width: 100%;
         display: flex;
@@ -145,7 +145,7 @@
           margin-top: 5px;
           width: calc(100% - 10px);
           padding: 0 20px;
-          background-color: $chat-header-color;
+          background-color: var(--bg-6);
           display: flex;
           align-items: center;
           box-shadow: 0 5px 8px 0 rgba(#000, 0.5);
@@ -156,7 +156,7 @@
           .more-info {
             cursor: pointer;
             margin-left: auto;
-            color: #eee;
+            color: var(--primary-2);
             font-size: 22px;
           }
         }

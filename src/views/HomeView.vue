@@ -54,12 +54,14 @@
   import NoPass from '@/components/no-pass/no-pass.vue'
   import sun from '@/assets/img/sun.png'
   import moon from '@/assets/img/moon.png'
-  import { useUserStore } from '@/stores'
-  import { computed, onMounted, reactive } from 'vue'
+  import { useUserStore, useOtherStore } from '@/stores'
+  import { computed, onMounted, reactive, getCurrentInstance, watch } from 'vue'
   import { getToken } from '@/utils/utils'
   import { messageBox, friendList } from '@/stores/test'
 
   const user = useUserStore()
+  const other = useOtherStore()
+  const { proxy } = getCurrentInstance()
   const state = reactive({
     theme: false, //false晚上，true白天
     group: 0, //当前组，0聊天，1好友，2群聊
@@ -70,7 +72,6 @@
     friendList: [],
     messageBox: []
   })
-
   /**获取所有正在聊天的人和好友列表*/
   onMounted(() => {
     if (getToken()) {
@@ -94,6 +95,16 @@
       return []
     }
   })
+
+  watch(
+    () => state.theme,
+    value => {
+      document.documentElement.dataset.them = value ? 'light' : 'dark'
+    },
+    {
+      immediate: true
+    }
+  )
 </script>
 <style module lang="scss">
   .home {

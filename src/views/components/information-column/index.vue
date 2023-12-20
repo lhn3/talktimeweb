@@ -53,7 +53,7 @@
     transition: all 0.5s;
     overflow-y: scroll;
     overflow-x: scroll;
-    background-image: linear-gradient(to bottom right, $chat-body-color, $primary-color2);
+    background-image: linear-gradient(to bottom right, var(--bg-4), var(--bg-2));
     :global {
     }
   }

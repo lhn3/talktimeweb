@@ -18,6 +18,7 @@ declare module 'vue' {
     ElPopover: typeof import('element-plus/es')['ElPopover']
     ElSwitch: typeof import('element-plus/es')['ElSwitch']
     ElTooltip: typeof import('element-plus/es')['ElTooltip']
+    HorizontalScrolling: typeof import('./src/components/horizontal-scrolling/horizontal-scrolling.vue')['default']
     HorseRaceLamp: typeof import('./src/components/no-pass/horse-race-lamp.vue')['default']
     NoPass: typeof import('./src/components/no-pass/no-pass.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']

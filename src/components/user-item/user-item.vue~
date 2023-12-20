@@ -1,6 +1,6 @@
 <!--用户item组件-->
 <template>
-  <div :class="$style['user-item']" :style="{ backgroundColor: checkId === id ? 'rgba(0,0,0,0.3)' : '' }">
+  <div :class="$style['user-item']" :style="{ backgroundColor: checkId === id ? 'rgba(0,0,0,0.2)' : '' }">
     <el-avatar shape="circle" :size="50" fit="cover" :src="avatar" />
     <div class="user-info">
       <div class="user-name text-nowrap">{{ remake || userName }}</div>

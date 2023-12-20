@@ -1,3 +1,4 @@
+<!--小鸟按钮-->
 <template>
   <div class="birdButton" :style="{ transform: `scale(${size})` }">
     <div class="content">

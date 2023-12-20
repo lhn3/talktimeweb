@@ -250,7 +250,7 @@
         border-radius: 5px;
       }
       .icon-style:hover {
-        background-color: var(--bg-3);
+        background-color: var(--primary-3);
       }
     }
   }

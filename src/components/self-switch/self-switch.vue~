@@ -110,7 +110,7 @@
     $transition: all 0.4s;
     .switchBox {
       position: absolute;
-      background-color: var(--bg-2);
+      background-color: #aaa;
       overflow: hidden;
       transition: $transition;
     }
